@@ -11,7 +11,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      screens: { sm: "480px", md: "768px", lg: "976px", xl: "1440pd" },
+      screens: { sm: "360px", md: "768px", lg: "976px", xl: "1440px"},
       colors: {
         instagram: '#E4405F',
         facebook: '#1877F2',

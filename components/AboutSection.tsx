@@ -97,14 +97,13 @@ const AboutSection = () => {
 
 
           <div className="text-center md:w-1/2 md:text-left">
-           {/*  <h1 className="text-2xl font-bold mb-6">Introduction video</h1> */}
             <div className="flex flex-wrap flex-row justify-center z-10 md:justify-start">
      
-            <div style={{display:'flex',justifyContent:'center',minWidth:'550px'}}>
+            <div style={{display:'flex',justifyContent:'center',maxWidth:'370px'}}>
 
         
               <iframe
-                 style={{width: '410px',height:"260px"}}
+                 style={{width: '320px',height:"200px"}}
                 src="https://www.youtube.com/embed/pjjsb-kI-N8"
                 title="Profesor de Español | Juan Pablo R. 🇨🇴📝"
                 frameBorder="0"
@@ -122,8 +121,8 @@ const AboutSection = () => {
                ref={ref}
               src="/colombia.png"
               alt=""
-              width={325}
-              height={325}
+              width={300}
+              height={300}
               className="hidden md:block md:relative md:bottom-4 md:left-32 md:z-0"
             />
           </motion.div>

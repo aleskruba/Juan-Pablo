@@ -20,7 +20,7 @@ export default function RootLayout({ children }:any) {
 }
 
   return (
-    <html lang="en" suppressHydrationWarning className="!scroll-smooth">
+    <html lang="en" suppressHydrationWarning className="!scroll-smooth  ">
         <head />
        <body>
       

@@ -29,17 +29,16 @@ export default function Home() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 sm:px-6 md:max-w-5xl ">
-        
          <HeroSection />
       
-      <motion.div 
+   <motion.div 
           ref={ref}
           style={{
             scale:scaleProgress,
             opacity:scrollYProgress
           }}>
       <AboutSection />
-      </motion.div>
+      </motion.div> 
 
       <motion.div 
           ref={refGuide}
