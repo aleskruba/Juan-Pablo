@@ -1,7 +1,7 @@
 "use client" // this is a client component
 import React,{useEffect,useRef} from "react"
 import { useState } from "react"
-import { Link } from "react-scroll/modules"
+import Link from 'next/link'
 import { useTheme } from "next-themes"
 import { RiMoonFill, RiSunLine } from "react-icons/ri"
 import { IoMdMenu, IoMdClose } from "react-icons/io"
@@ -18,60 +18,60 @@ interface NavItem {
 const NAV_ITEMS_EN: Array<NavItem> = [
   {
     label: "About me",
-    page: "home",
+    page: "#home",
   },
 
   {
     label: "Spanish teacher",
-    page: "about",
+    page: "#about",
   },
   {
     label: "Tourist guide in Medellin",
-    page: "projects",
+    page: "#projects",
   },
   {
     label: "Contact me",
-    page: "contact",
+    page: "#contact",
   },
 ]
 
 const NAV_ITEMS_ES: Array<NavItem> = [
   {
     label: "Acerca de mi",
-    page: "home",
+    page: "#home",
   },
 
   {
     label: "Profesor de español",
-    page: "about",
+    page: "#about",
   },
   {
     label: "Guía turístico en Medellín",
-    page: "projects",
+    page: "#projects",
   },
   {
     label: "Contáctame",
-    page: "contact",
+    page: "#contact",
   },
 ]
 
 const NAV_ITEMS_CZ: Array<NavItem> = [
   {
     label: "O mně",
-    page: "home",
+    page: "#home",
   },
 
   {
     label: "Učitel španělštiny",
-    page: "about",
+    page: "#about",
   },
   {
     label: "Průvodce v Medellinu",
-    page: "projects",
+    page: "#projects",
   },
   {
     label: "Kontaktujte mě",
-    page: "contact",
+    page: "#contact",
   },
 ]
 export default function Navbar() {
@@ -104,9 +104,7 @@ export default function Navbar() {
 
         }
       }
-
       document.addEventListener('mousedown', handler)
-     // document.addEventListener('scroll', handler)
 
       return() => {
         document.removeEventListener('mousedown',handler)
@@ -119,7 +117,7 @@ export default function Navbar() {
       <div className="justify-between  md:items-center md:flex">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
-            <Link to="home">
+            <Link href="/#home">
               <div className="container flex items-center space-x-2">
                 <h2 className="text-2xl font-bold">Juan Pablo</h2>
               </div>
@@ -147,15 +145,11 @@ export default function Navbar() {
                 return (
                   <Link
                     key={idx}
-                    to={item.page}
+                    href={item.page}
+                    scroll={true}
                     className={
                       "block lg:inline-block text-neutral-900  hover:text-neutral-500 dark:text-neutral-100"
                     }
-                    activeClass="active"
-                    spy={true}
-                    smooth={true}
-                    offset={-100}
-                    duration={500}
                     onClick={() => setNavbar(!navbar)}
                   >
                     {item.label}
@@ -167,15 +161,11 @@ export default function Navbar() {
                 return (
                   <Link
                     key={idx}
-                    to={item.page}
+                    href={item.page}
+                    scroll={true}
                     className={
                       "block lg:inline-block text-neutral-900  hover:text-neutral-500 dark:text-neutral-100"
                     }
-                    activeClass="active"
-                    spy={true}
-                    smooth={true}
-                    offset={-100}
-                    duration={500}
                     onClick={() => setNavbar(!navbar)}
                   >
                     {item.label}
@@ -187,16 +177,12 @@ export default function Navbar() {
                 return (
                   <Link
                     key={idx}
-                    to={item.page}
+                    href={item.page}
+                    scroll={true}               
                     className={
                       "block lg:inline-block text-neutral-900  hover:text-neutral-500 dark:text-neutral-100"
                     }
-                    activeClass="active"
-                    spy={true}
-                    smooth={true}
-                    offset={-100}
-                    duration={500}
-                    onClick={() => setNavbar(!navbar)}
+                   onClick={() => setNavbar(!navbar)}
                   >
                     {item.label}
                   </Link>

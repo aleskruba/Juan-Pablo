@@ -33,8 +33,8 @@ const AboutSection = () => {
 
   return (
     <section id="about">
-      <div className="my-12 pb-12 md:pt-10 md:pb-48">
-        <h1 className="text-center font-bold text-4xl">
+      <div className="my-6 pb-12 md:pt-10 md:pb-48">
+        <h1 className="text-center mt-10 font-bold text-4xl">
         {selected  === 'Us' &&   'Spanish Teacher' }
         {selected  === 'Es' &&   'Profesor de español' }
         {selected  === 'Cz' &&   'Učitel španělštiny' }
