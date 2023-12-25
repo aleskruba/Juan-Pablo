@@ -1,6 +1,5 @@
 "use client" // this is a client component
 import React,{useEffect,useRef} from "react"
-import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react"
 import { Link } from "react-scroll/modules"
 import { useTheme } from "next-themes"
@@ -8,10 +7,7 @@ import { RiMoonFill, RiSunLine } from "react-icons/ri"
 import { IoMdMenu, IoMdClose } from "react-icons/io"
 import { Us,Es,Cz } from "react-flags-select";
 import { useLanguageContext } from "@/context/language-context"
-import AuthSocialButton from "./ButtonGoogle"
-import {BsGoogle} from 'react-icons/bs'
-//import AuthForm from "./LoginGoogle"
-import SigninButton from "./ButtonGoogle"
+
 import AuthForm from "./LoginGoogle"
 
 interface NavItem {

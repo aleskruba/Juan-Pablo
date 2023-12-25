@@ -123,7 +123,7 @@ const GuideSection = () => {
              {selected  === 'Us' && 
           <>
           <p><b>
-          Hey there! Ready to dive into Medellin's wonders? 🌟 Let me be your guide to the city's coolest spots:
+          Hey there! Ready to explore the wonders of Medellin? 🌟 Let me guide you to the coolest spots in the city:
 
     
       </b>
@@ -134,16 +134,16 @@ const GuideSection = () => {
             </p>
             <br />
             <p>
-              <b>🚡 Teleferico & El Peñol Rock:</b> Stunning views await! We'll soar high on the Teleferico and climb El Peñol Rock for jaw-dropping panoramas you won't forget.
+              <b>🚡 Teleferico & El Peñol Rock:</b> Stunning views await! We will soar high on the Teleferico and climb El Peñol Rock for jaw-dropping panoramas you won&apos;t forget.
             </p>
             <p>
-              <b>🍴 Local Eateries:</b> Let's indulge in Medellin's delicious bites! From cozy family-run restaurants to bustling markets, taste the authentic flavors of Colombia.
+              <b>🍴 Local Eateries:</b> Let&apos;s indulge in Medellin&apos;s delicious bites! From cozy family-run restaurants to bustling markets, taste the authentic flavors of Colombia.
             </p>
             <p>
-              <b>🔒 Safe Exploration:</b> Your safety is my priority! I'll take you to secure and welcoming places, ensuring a worry-free and enjoyable journey.
+              <b>🔒 Safe Exploration:</b> Your safety is my priority! I&apos;ll take you to secure and welcoming places, ensuring a worry-free and enjoyable journey.
             </p>
             <p>
-              <b>🌟 Tailored Adventures:</b> Your safety is my priority! I'll take you to secure and welcoming places, ensuring a worry-free and enjoyable journey.
+              <b>🌟 Tailored Adventures:</b> Your safety is my priority! I&apos;ll take you to secure and welcoming places, ensuring a worry-free and enjoyable journey.
             </p>
       
       

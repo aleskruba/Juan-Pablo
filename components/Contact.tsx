@@ -28,7 +28,7 @@ const Contact = () => {
     if (isInView) {
     mainControls.start("visible")
     }
-    },[isInView])
+    },[isInView,mainControls])
 
     const formVariants = {
       hidden: { x: '-100%' },
