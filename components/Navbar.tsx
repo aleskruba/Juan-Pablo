@@ -7,8 +7,9 @@ import { RiMoonFill, RiSunLine } from "react-icons/ri"
 import { IoMdMenu, IoMdClose } from "react-icons/io"
 import { Us,Es,Cz } from "react-flags-select";
 import { useLanguageContext } from "@/context/language-context"
-
+import { useSession } from 'next-auth/react'
 import AuthForm from "./LoginGoogle"
+
 
 interface NavItem {
   label: string
@@ -75,6 +76,9 @@ const NAV_ITEMS_CZ: Array<NavItem> = [
   },
 ]
 export default function Navbar() {
+
+  const session = useSession()
+
   const { systemTheme, theme, setTheme } = useTheme()
   const currentTheme = theme === "system" ? systemTheme : theme
   const [navbar, setNavbar] = useState(false)
@@ -89,6 +93,7 @@ export default function Navbar() {
   const handleFlagClick = (code:Language) => {
     if (selected !== code) {
       setSelected(code);
+      localStorage.setItem('selectedLanguage', code);
     }
   };
 
@@ -120,8 +125,18 @@ export default function Navbar() {
             <Link href="/#home">
               <div className="container flex items-center space-x-2">
                 <h2 className="text-2xl font-bold">Juan Pablo</h2>
+              
+                {session && session.data?.user && session.data.user.name ? 
+                  <div className=" pl-3 ">
+                      <AuthForm/> 
+                  </div>                  
+                : null}
+
               </div>
             </Link>
+       
+
+
             <div className="md:hidden"  >
               <button
                 className="p-2 text-gray-800 dark:text-gray-100 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -191,7 +206,7 @@ export default function Navbar() {
 
 
 
-                <div className="flex justify-start md:justify-center gap-4">
+                <div className="flex justify-start items-center md:justify-center gap-4">
                   <div>
           {currentTheme === "dark" ? (
                 <button
@@ -211,14 +226,14 @@ export default function Navbar() {
 
           </div>
 
-            <div className="flex flex-col justify-center gap-0 h-[50px] relative">
+            <div className="flex flex-row md:flex-col justify-center gap-0  relative ">
               {countries.map((countryCode) => (
                 <div key={countryCode} onClick={() => handleFlagClick(countryCode)}>
                   {selected !== countryCode && (
                     <>
-                      {countryCode === 'Us' ? <Us  /> : null}
-                      {countryCode === 'Es' ? <Es /> : null}
-                      {countryCode === 'Cz' ? <Cz /> : null}
+                      {countryCode === 'Us' ? <Us className="md:w-[40px] w-[60px]"/> : null}
+                      {countryCode === 'Es' ? <Es className="md:w-[40px] w-[60px]"/> : null}
+                      {countryCode === 'Cz' ? <Cz className="md:w-[40px] w-[60px]"/> : null}
                     </>
                   )}
                 </div>
@@ -227,11 +242,7 @@ export default function Navbar() {
 
             </div>
 
-           <div >
-              <AuthForm/> 
-
-
-              </div>
+   
             </div>
           </div>
         </div>

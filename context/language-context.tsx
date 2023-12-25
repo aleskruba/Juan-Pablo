@@ -1,39 +1,55 @@
-"use client"
-
-import React,{createContext,useState,useContext} from 'react'
-
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 type LanguageContextProviderProps = {
     children: React.ReactNode;
-}
+};
 
-type Language = 'Us' | 'Cz' | 'Es' ;
+type Language = string;
 
 type LanguageContext = {
-    selected: Language ;
+    selected: Language;
     setSelected: React.Dispatch<React.SetStateAction<Language>>;
+};
+
+export const LanguageContext = createContext<LanguageContext | null>(null);
+
+export default function LanguageContextProvider({
+    children,
+}: LanguageContextProviderProps) {
+    
+    let initialLanguage: Language 
+
+    if (typeof window !== 'undefined') {
+        const storedLanguage = localStorage.getItem('selectedLanguage');
+        initialLanguage = storedLanguage ? (storedLanguage as Language) : 'Us';
+    }
+
+      const [selected, setSelected] = useState<Language>('');
+    
+
+    useEffect(() => {
+
+        const storedLanguage = localStorage.getItem('selectedLanguage');
+        const initialLanguage: Language = storedLanguage ? (storedLanguage as Language) : 'Us';
+
+        localStorage.setItem('selectedLanguage', initialLanguage);
+        setSelected(initialLanguage)
+
+    }, []);
+
+    return (
+        <LanguageContext.Provider value={{ selected, setSelected }}>
+           {selected.length ? children : null}
+        </LanguageContext.Provider>
+    );
 }
-
-export const LanguageContext = createContext<LanguageContext | null>(null)
-
-export default function LanguageContextProvider({children}:LanguageContextProviderProps) {
-    const [selected, setSelected] = useState<Language>("Us")
-
-  return (
-        <LanguageContext.Provider 
-            value={{selected,setSelected}}>
-                
-                {children}
-
-        </LanguageContext.Provider >
-  )
-}
-
 
 export function useLanguageContext() {
     const context = useContext(LanguageContext);
     if (!context) {
-        throw new Error("useLanguageContext must be used within a LanguageContextProvider");
+        throw new Error(
+            'useLanguageContext must be used within a LanguageContextProvider'
+        );
     }
     return context;
 }

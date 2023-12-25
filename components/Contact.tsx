@@ -49,7 +49,12 @@ const Contact = () => {
                {session && session.data?.user ? 
               
                   <div className='mt-2 text-xl '>
-                   Hi {session.data?.user?.name} , feel free to ask me anything
+                    {session.data?.user?.name} , 
+                   
+                   {selected  === 'Us' && 'feel free to ask me anything'}
+                   {selected  === 'Es' &&   'Siéntete libre de preguntarme cualquier cosa'}
+                   {selected  === 'Cz' && 'klidně se mě na cokoli zeptej'}
+                 
                  </div>
               :
               <> 
@@ -139,7 +144,7 @@ const Contact = () => {
         onSubmit={handleSubmit}
       >
         {({ handleSubmit }) => (
-          <Form onSubmit={handleSubmit} className=" bg-white min-w-full shadow-md rounded px-2 pt-6 pb-8 mb-4">
+          <Form onSubmit={handleSubmit} className=" bg-gray-200 min-w-full shadow-md rounded px-2 pt-6 pb-8 mb-4">
             <div className={session.data?.user?.name ?'' :'opacity-50 pointer-events-none'}>
               <div className="mb-4">
                 <Field

@@ -102,6 +102,8 @@ const GuideSection = () => {
     <p>
       <b>Nazdárek! Jste připraveni ponořit se do Medellínu? 🌟 Dovolte mi být vaším průvodcem po nejlepších místech města:</b>
     </p>
+
+    <div className='text-left'>
     <p>
       <b>🎨 Comuna 13:</b> Pouliční umění, živá kultura a inspirativní příběhy o odolnosti. Připravte se na dobrodružství plné barevných ulic a povznášejících vibrací.
     </p>
@@ -117,7 +119,10 @@ const GuideSection = () => {
     <p>
       <b>🌟 Dobrodružství na míru:</b> Vaše bezpečnost je mou prioritou! Vezmu vás na bezpečná a přívětivá místa, která zajistí bezstarostnou a příjemnou cestu.
     </p>
-  </>
+
+    </div>
+    
+      </>
 )}
 
              {selected  === 'Us' && 
@@ -128,7 +133,8 @@ const GuideSection = () => {
     
       </b>
         </p>
-     
+     <div className='text-left'>
+      
               <p>
               <b>🎨 Comuna 13:</b> Street art, vibrant culture, and inspiring stories of resilience. Get ready for an adventure filled with colorful streets and uplifting vibes.
             </p>
@@ -145,14 +151,15 @@ const GuideSection = () => {
             <p>
               <b>🌟 Tailored Adventures:</b> Your safety is my priority! I&apos;ll take you to secure and welcoming places, ensuring a worry-free and enjoyable journey.
             </p>
-      
-      
+            </div>
         </>}
         {selected === 'Es' && (
   <>
     <p>
       <b>¡Hola! ¿Listo para sumergirte en las maravillas de Medellín? 🌟 Déjame ser tu guía de los lugares más interesantes de la ciudad:</b>
     </p>
+
+    <div className='text-left'>
     <p>
       <b>🎨 Comuna 13:</b> Arte callejero, cultura vibrante e historias inspiradoras de resiliencia. Prepárate para una aventura llena de calles coloridas y vibraciones estimulantes.
     </p>
@@ -168,6 +175,7 @@ const GuideSection = () => {
     <p>
       <b>🌟 Aventuras a medida:</b> ¡Tu seguridad es mi prioridad! Te llevaré a lugares seguros y acogedores, garantizándote un viaje agradable y sin preocupaciones.
     </p>
+    </div>
   </>
 )}
 

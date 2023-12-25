@@ -19,7 +19,8 @@ const AuthForm = () => {
 
     useEffect(()=>{
         if (session?.status === 'authenticated') {
-            console.log('Authenticated')
+                   toast.success('Logged In')
+            router.push('/#contact')
           
         }
     },[session?.status,router])
@@ -34,8 +35,8 @@ const AuthForm = () => {
                     toast.error('Invalid credentials')
                 }
                 if (callback?.ok && !callback?.error) {
-                    toast.success('Logged In')
-                    router.push('/')
+                    console.log('Success callback:', callback);
+
                 }
                 }) 
            .finally(()=>setIsLoading(false))
@@ -44,14 +45,19 @@ const AuthForm = () => {
  
     if(session && session.data?.user) { 
         return (
-        <div className="flex gap-4 ml-auto">
-        <p className="text-sky-600">
-               Hi {session.data?.user.name && session.data?.user.name.split(' ')[0]}
-        </p>
+            
+        <div className="flex gap-4 ml-auto ml-3">
+        
+        <div className="text-sky-600 flex">
+        <div className="text-3xl">👋</div>{session.data?.user.name && session.data?.user.name.split(' ')[0]}
+             
+        </div>
+        <div>
         <button onClick={()=>signOut()}
-                        className="text-red-600 font-extralight">
+                        className="text-red-800 dark:text-red-300 font-extralight">
                             Sign Out
                 </button>
+                </div>
         </div>
         )
     } 
