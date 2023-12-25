@@ -38,9 +38,9 @@ const GuideSection = () => {
     }, [isInViewImage, imageControls]);
 
   return (
-    <section id="projects">
-    <div className="my-12 pb-12 md:pt-16 md:pb-48">
-        <h1 className="text-center font-bold text-4xl">
+    <section id="projects" style={{marginTop:'24px'}} >
+    <div className="pb-12 md:pt-16 md:pb-48">
+        <h1 className="text-center pt-24 md:pt-6 font-bold text-4xl">
         {selected  === 'Us' &&   'Tourist guide in Medellin' }
         {selected  === 'Es' &&   'Guía turístico en Medellín' }
         {selected  === 'Cz' &&   'Průvodce v Medellinu' }

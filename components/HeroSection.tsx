@@ -9,7 +9,7 @@ const HeroSection = () => {
   return (
     <section id="home">
       <div className="flex flex-col text-center items-center justify-center animate-fadeIn animation-delay-2 my-2 py-16 sm:py-24 md:py-28 md:flex-row md:space-x-4 md:text-left">
-        <div className="md:mt-2 md:w-1/2">
+        <div className="mt-6 md:mt-2 md:w-1/2">
           <Image
             src="/juan.jpg"
             alt=""
