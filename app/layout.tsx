@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { ThemeProvider } from "@/context/theme-context"
 import LanguageContextProvider from "@/context/language-context"
-import AuthContext from "@/context/auth-context"
 import ToasterContext from "@/context/toaster-context"
 import Providers from "@/context/auth-context"
 
