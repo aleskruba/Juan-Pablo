@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLanguageContext } from '@/context/language-context';
 
-const AdminForm = () => {
+const RegisterForm = () => {
   const { setIsAdmin } = useLanguageContext();
 
   useEffect(()=>{
@@ -17,10 +17,14 @@ const AdminForm = () => {
     initialValues: {
       email: '',
       password: '',
+      repeatPassword: '',
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('Required'),
       password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
+      repeatPassword: Yup.string()
+        .oneOf([Yup.ref('password'), ''], 'Passwords must match')
+        .required('Required'),
     }),
     onSubmit: (values, { resetForm }) => {
       // Perform registration logic here using form values
@@ -33,7 +37,7 @@ const AdminForm = () => {
     <div className="w-screen h-screen flex items-center justify-center">
       
       <form className="w-full max-w-md" onSubmit={formik.handleSubmit}>
-      <div className='text-center mb-10 text-teal-400 font-thin text-2xl'>Login</div>
+      <div className='text-center mb-10 text-teal-400 font-thin text-2xl'>Register a new admin</div>
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
             Email
@@ -47,8 +51,7 @@ const AdminForm = () => {
             value={formik.values.email}
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Enter your email"
-            autoComplete="username"
-            
+            autoComplete="email"
           />
           {formik.touched.email && formik.errors.email && (
             <p className="text-red-500 text-xs mt-1">{formik.errors.email}</p>
@@ -67,19 +70,37 @@ const AdminForm = () => {
             value={formik.values.password}
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Enter your password"
-            autoComplete="current-password"
+            autoComplete="new-password"
           />
           {formik.touched.password && formik.errors.password && (
             <p className="text-red-500 text-xs mt-1">{formik.errors.password}</p>
           )}
         </div>
-       
+        <div className="mb-4">
+          <label htmlFor="repeatPassword" className="block text-gray-700 text-sm font-bold mb-2">
+            Repeat Password
+          </label>
+          <input
+            id="repeatPassword"
+            name="repeatPassword"
+            type="password"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.repeatPassword}
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Repeat your password"
+            autoComplete="new-password"
+          />
+          {formik.touched.repeatPassword && formik.errors.repeatPassword && (
+            <p className="text-red-500 text-xs mt-1">{formik.errors.repeatPassword}</p>
+          )}
+        </div>
         <div className="mb-4">
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Login
+            Register
           </button>
         </div>
       </form>
@@ -87,4 +108,4 @@ const AdminForm = () => {
   );
 };
 
-export default AdminForm;
+export default RegisterForm;

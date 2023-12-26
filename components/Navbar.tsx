@@ -141,7 +141,7 @@ export default function Navbar() {
                         </div>
                         :
               <div className="container flex items-center space-x-2">
-                    <h2 className="text-2xl font-bold">ADMIN PAGE : WELCOME Juan Pablo</h2>
+                    <h2 className=" text-teal-400 font-thin text-2xl">ADMIN PAGE : WELCOME Juan Pablo</h2>
               </div>                                  }
   
        
