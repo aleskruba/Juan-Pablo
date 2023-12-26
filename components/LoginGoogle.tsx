@@ -17,48 +17,50 @@ const AuthForm = () => {
 
 
 
-    useEffect(()=>{
-        if (session?.status === 'authenticated') {
-                   toast.success('Logged In')
-            router.push('/#contact')
-          
+    useEffect(() => {
+        const isFirstTimeLogin = localStorage.getItem('firstTimeLogin');
+    
+        if (session?.status === 'authenticated' && isFirstTimeLogin === null) {
+          localStorage.setItem('firstTimeLogin', 'true');
+          router.push('/#contact');
         }
-    },[session?.status,router])
+      }, [session?.status, router]);
 
 
+      
     const socialAction = (action:string) => {
         setIsLoading(true)
         signIn(action,{redirect:false})
-            .then((callback) => {
-    
-                if (callback?.error) {
-                    toast.error('Invalid credentials')
-                }
-                if (callback?.ok && !callback?.error) {
-                    console.log('Success callback:', callback);
-
-                }
-                }) 
-           .finally(()=>setIsLoading(false))
+        .finally(()=>setIsLoading(false))
 
     }
+
+    const handleSignOut = () => {
+        signOut();
+        localStorage.removeItem('firstTimeLogin'); // Clear firstTimeLogin flag on logout
+      };
  
     if(session && session.data?.user) { 
-        return (
-            
+        return ( <>
+            {!isLoading ? 
         <div className="flex gap-4 ml-auto ml-3">
-        
-        <div className="text-sky-600 flex">
-        <div className="text-3xl">👋</div>{session.data?.user.name && session.data?.user.name.split(' ')[0]}
+            <div className="text-sky-600 flex">
+                <div className="text-3xl">👋</div>{session.data?.user.name && session.data?.user.name.split(' ')[0]}
              
-        </div>
-        <div>
-        <button onClick={()=>signOut()}
+                </div>
+            <div>
+                <button onClick={handleSignOut}
                         className="text-red-800 dark:text-red-300 font-extralight">
                             Sign Out
                 </button>
-                </div>
+            </div>
         </div>
+     :
+        <div>
+            wait please
+        </div>
+    }
+    </>
         )
     } 
 

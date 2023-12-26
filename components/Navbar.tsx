@@ -83,7 +83,7 @@ export default function Navbar() {
   const currentTheme = theme === "system" ? systemTheme : theme
   const [navbar, setNavbar] = useState(false)
 
-  const {selected, setSelected} = useLanguageContext()
+  const {selected, setSelected,isAdmin} = useLanguageContext()
 
 
   type Language = 'Us' | 'Cz' | 'Es';
@@ -118,25 +118,36 @@ export default function Navbar() {
 
 
   return (
-    <header className="w-full mx-auto  md:px-4  sm:px-4 fixed top-0 z-50 shadow bg-white dark:bg-stone-900  md:opacity-100  dark:border-b dark:border-stone-600">
+  
+  <header className="w-full mx-auto  md:px-4  sm:px-4 fixed top-0 z-50 shadow bg-white dark:bg-stone-900  md:opacity-100  dark:border-b dark:border-stone-600">
+  
       <div className="justify-between  md:items-center md:flex">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
+
+          {!isAdmin ? <div className="flex">
             <Link href="/#home">
               <div className="container flex items-center space-x-2">
                 <h2 className="text-2xl font-bold">Juan Pablo</h2>
-              
-                {session && session.data?.user && session.data.user.name ? 
+             </div> 
+            </Link>
+            <div>
+            {session && session.data?.user && session.data.user.name ? 
                   <div className=" pl-3 ">
                       <AuthForm/> 
                   </div>                  
                 : null}
-
-              </div>
-            </Link>
+                </div>
+                        </div>
+                        :
+              <div className="container flex items-center space-x-2">
+                    <h2 className="text-2xl font-bold">ADMIN PAGE : WELCOME Juan Pablo</h2>
+              </div>                                  }
+  
        
 
-
+     
+           {!isAdmin &&
             <div className="md:hidden"  >
               <button
                 className="p-2 text-gray-800 dark:text-gray-100 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -145,10 +156,13 @@ export default function Navbar() {
               >
                 {navbar ? <IoMdClose size={30} /> : <IoMdMenu size={30} />}
               </button>
-            </div>
+            </div>}
+
           </div>
         </div>
 
+
+        {!isAdmin &&
         <div>
           <div ref={menuRef}
             className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
@@ -241,11 +255,14 @@ export default function Navbar() {
             </div>
 
             </div>
-
+        
    
             </div>
           </div>
         </div>
+
+}
+
       </div>
     </header>
   )

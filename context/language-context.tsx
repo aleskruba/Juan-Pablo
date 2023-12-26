@@ -5,11 +5,18 @@ type LanguageContextProviderProps = {
 };
 
 type Language = string;
+type Admin = boolean;
+
 
 type LanguageContext = {
     selected: Language;
     setSelected: React.Dispatch<React.SetStateAction<Language>>;
+    isAdmin: Admin;
+    setIsAdmin: React.Dispatch<React.SetStateAction<Admin>>
 };
+
+
+
 
 export const LanguageContext = createContext<LanguageContext | null>(null);
 
@@ -25,7 +32,7 @@ export default function LanguageContextProvider({
     }
 
       const [selected, setSelected] = useState<Language>('');
-    
+      const [isAdmin,setIsAdmin] = useState<Admin>(false)
 
     useEffect(() => {
 
@@ -38,7 +45,7 @@ export default function LanguageContextProvider({
     }, []);
 
     return (
-        <LanguageContext.Provider value={{ selected, setSelected }}>
+        <LanguageContext.Provider value={{ selected, setSelected ,isAdmin,setIsAdmin}}>
            {selected.length ? children : null}
         </LanguageContext.Provider>
     );
