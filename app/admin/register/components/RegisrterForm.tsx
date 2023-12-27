@@ -7,12 +7,12 @@ import { useLanguageContext } from '@/context/language-context';
 type backendError = string | null
 
 const RegisterForm = () => {
-  const { setIsAdmin } = useLanguageContext();
+  const { setIsAdminPage } = useLanguageContext();
 
   const [backendError,setBackendError] = useState<backendError>(null)
 
   useEffect(()=>{
-    setIsAdmin(true)
+    setIsAdminPage(true)
   },[])
 
 
