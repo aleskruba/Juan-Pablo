@@ -1,5 +1,5 @@
 "use client"
-import React,{useEffect, useRef} from 'react'
+import React,{Fragment, useEffect, useRef} from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import {motion, useAnimation, useInView } from  'framer-motion'
@@ -17,7 +17,7 @@ type resetFormTypes = () => void
 const Contact = () => {
 
 
-  const {selected} = useLanguageContext()
+  const {selected,currentUser} = useLanguageContext()
   const session = useSession()
 
   const ref = useRef(null)
@@ -49,12 +49,15 @@ const Contact = () => {
                {session && session.data?.user ? 
               
                   <div className='mt-2 text-xl '>
-                    {session.data?.user?.name} , 
+                    {session.data?.user?.name || currentUser?.email} , {currentUser?.admin && 'ADMIN'} 
                    
-                   {selected  === 'Us' && 'feel free to ask me anything'}
-                   {selected  === 'Es' &&   'Siéntete libre de preguntarme cualquier cosa'}
-                   {selected  === 'Cz' && 'klidně se mě na cokoli zeptej'}
-                 
+                   {!currentUser?.admin &&
+                     <Fragment> 
+                      {selected  === 'Us' && 'feel free to ask me anything'}
+                      {selected  === 'Es' &&   'Siéntete libre de preguntarme cualquier cosa'}
+                      {selected  === 'Cz' && 'klidně se mě na cokoli zeptej'}
+                      </Fragment>
+                    }
                  </div>
               :
               <> 

@@ -3,12 +3,18 @@ import React,{useEffect} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLanguageContext } from '@/context/language-context';
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 const AdminForm = () => {
-  const { setIsAdmin } = useLanguageContext();
+  const { setIsAdminPage } = useLanguageContext();
+
+  const router = useRouter()
 
   useEffect(()=>{
-    setIsAdmin(true)
+    setIsAdminPage(true)
   },[])
 
 
@@ -17,20 +23,40 @@ const AdminForm = () => {
     initialValues: {
       email: '',
       password: '',
+      admin:true,
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('Required'),
       password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
     }),
     onSubmit: (values, { resetForm }) => {
-      // Perform registration logic here using form values
-      console.log('Form values:', values);
-      resetForm();// Set isAdmin to true after successful registration
+    resetForm();
+
+
+    signIn('credentials',{
+        ...values,
+        redirect:false
+    })
+    .then((callback)=>{
+  
+      
+        if (callback?.error) {
+            toast.error('Invalid credentials')
+        }
+       
+        if (callback?.ok && !callback?.error) {
+           toast.success('Logged In')
+            router.push('/admin/dashboard')  
+        }
+    })
+  
+
+
     },
   });
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center">
+    <div className="w-screen h-screen flex flex-col items-center justify-center">
       
       <form className="w-full max-w-md" onSubmit={formik.handleSubmit}>
       <div className='text-center mb-10 text-teal-400 font-thin text-2xl'>Login</div>
@@ -83,6 +109,10 @@ const AdminForm = () => {
           </button>
         </div>
       </form>
+      <Link href='/admin/fpassword'
+            className='block text-center text-blue-500 hover:underline mt-2'>
+        forgot your password? 
+      </Link>
     </div>
   );
 };

@@ -1,11 +1,15 @@
 "use client"
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLanguageContext } from '@/context/language-context';
 
+type backendError = string | null
+
 const RegisterForm = () => {
   const { setIsAdmin } = useLanguageContext();
+
+  const [backendError,setBackendError] = useState<backendError>(null)
 
   useEffect(()=>{
     setIsAdmin(true)
@@ -18,18 +22,49 @@ const RegisterForm = () => {
       email: '',
       password: '',
       repeatPassword: '',
+      admin:true
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('Required'),
       password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
-      repeatPassword: Yup.string()
+       repeatPassword: Yup.string()
         .oneOf([Yup.ref('password'), ''], 'Passwords must match')
-        .required('Required'),
+        .required('Required'), 
     }),
-    onSubmit: (values, { resetForm }) => {
-      // Perform registration logic here using form values
-      console.log('Form values:', values);
-      resetForm();// Set isAdmin to true after successful registration
+    onSubmit: async (values, { resetForm }) => {
+      setBackendError(null)
+      try {
+        // Perform registration logic here using form values
+        console.log('Form values:', values);
+        
+        // Make asynchronous call using fetch with async/await
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+
+        console.log(response)
+
+        
+ 
+        if (!response.ok && (response.status===422 || response.status===400 || response.status===409))  {
+          setBackendError(response.statusText)
+          throw new Error('Network response was not ok.');
+        }
+
+        await response.json();
+     
+        // Reset the form if needed
+        resetForm();
+
+        // Set isAdmin to true after successful registration if needed
+      } catch (error) {
+        // Handle error scenarios here if the API call fails
+        console.error('Error occurred:', error);
+      }
     },
   });
 
@@ -56,7 +91,7 @@ const RegisterForm = () => {
           {formik.touched.email && formik.errors.email && (
             <p className="text-red-500 text-xs mt-1">{formik.errors.email}</p>
           )}
-        </div>
+                </div>
         <div className="mb-4">
           <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
             Password
@@ -75,6 +110,7 @@ const RegisterForm = () => {
           {formik.touched.password && formik.errors.password && (
             <p className="text-red-500 text-xs mt-1">{formik.errors.password}</p>
           )}
+            {backendError && <p className="text-red-500 text-xs mt-1">Server Error: {backendError}</p>}
         </div>
         <div className="mb-4">
           <label htmlFor="repeatPassword" className="block text-gray-700 text-sm font-bold mb-2">

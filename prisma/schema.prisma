@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id              String @id @default(auto()) @map("_id") @db.ObjectId
-  admin           Boolean
+  admin           Boolean @default(false)
   name            String?
   email           String?   @unique
   emailVerified   DateTime?

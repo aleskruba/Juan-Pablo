@@ -83,8 +83,7 @@ export default function Navbar() {
   const currentTheme = theme === "system" ? systemTheme : theme
   const [navbar, setNavbar] = useState(false)
 
-  const {selected, setSelected,isAdmin} = useLanguageContext()
-
+  const {selected, setSelected,isAdminPage} = useLanguageContext()
 
   type Language = 'Us' | 'Cz' | 'Es';
 
@@ -116,6 +115,7 @@ export default function Navbar() {
       }
   })
 
+ 
 
   return (
   
@@ -125,29 +125,33 @@ export default function Navbar() {
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
 
-          {!isAdmin ? <div className="flex">
+          {!isAdminPage  ? <div className="flex">
             <Link href="/#home">
               <div className="container flex items-center space-x-2">
-                <h2 className="text-2xl font-bold">Juan Pablo</h2>
+                <h2 className="text-lg md:2xl font-bold">Juan Pablo</h2>
              </div> 
             </Link>
-            <div>
-            {session && session.data?.user && session.data.user.name ? 
+            <div >
+    
+            {session && session.data?.user ? 
                   <div className=" pl-3 ">
                       <AuthForm/> 
                   </div>                  
                 : null}
+              
+         
+              
                 </div>
                         </div>
                         :
               <div className="container flex items-center space-x-2">
-                    <h2 className=" text-teal-400 font-thin text-2xl">ADMIN PAGE : WELCOME Juan Pablo</h2>
+                    <h2 className=" text-teal-400 font-thin text-2xl">ADMIN PAGE  </h2>
               </div>                                  }
   
        
 
      
-           {!isAdmin &&
+           {!isAdminPage &&
             <div className="md:hidden"  >
               <button
                 className="p-2 text-gray-800 dark:text-gray-100 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -162,7 +166,7 @@ export default function Navbar() {
         </div>
 
 
-        {!isAdmin &&
+        {!isAdminPage &&
         <div>
           <div ref={menuRef}
             className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${

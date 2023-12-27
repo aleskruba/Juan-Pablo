@@ -1,3 +1,4 @@
+import getCurrentUser from '@/app/actions/getCurrentUser';
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 type LanguageContextProviderProps = {
@@ -7,12 +8,27 @@ type LanguageContextProviderProps = {
 type Language = string;
 type Admin = boolean;
 
+type currentUserProps =  {
+    id: string;
+    admin: boolean;
+    name: string | null;
+    email: string | null;
+    emailVerified: Date | null;
+    image: string | null;
+    hashedPassword: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+    seenMessageIds: string[];
+  } | null 
 
 type LanguageContext = {
     selected: Language;
     setSelected: React.Dispatch<React.SetStateAction<Language>>;
-    isAdmin: Admin;
-    setIsAdmin: React.Dispatch<React.SetStateAction<Admin>>
+    isAdminPage: Admin;
+    setIsAdminPage: React.Dispatch<React.SetStateAction<Admin>>
+    currentUser:currentUserProps
+    setCurrentUser: React.Dispatch<React.SetStateAction<currentUserProps>>;
+
 };
 
 
@@ -32,7 +48,9 @@ export default function LanguageContextProvider({
     }
 
       const [selected, setSelected] = useState<Language>('');
-      const [isAdmin,setIsAdmin] = useState<Admin>(false)
+      const [isAdminPage,setIsAdminPage] = useState<Admin>(false)
+
+      const [currentUser,setCurrentUser] = useState<currentUserProps>(null)
 
     useEffect(() => {
 
@@ -44,8 +62,22 @@ export default function LanguageContextProvider({
 
     }, []);
 
+    
+  useEffect(() => {
+    const fetchCurrentUser = async() => {
+      try {
+        const currentUser = await getCurrentUser();
+        setCurrentUser(currentUser)
+      } catch (error) {
+        console.error('Error fetching current user:', error);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
+
     return (
-        <LanguageContext.Provider value={{ selected, setSelected ,isAdmin,setIsAdmin}}>
+        <LanguageContext.Provider value={{ selected, setSelected ,isAdminPage,setIsAdminPage,currentUser,setCurrentUser}}>
            {selected.length ? children : null}
         </LanguageContext.Provider>
     );
