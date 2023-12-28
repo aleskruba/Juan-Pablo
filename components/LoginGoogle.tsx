@@ -45,9 +45,9 @@ const AuthForm = () => {
     if(session && session.data?.user) { 
         return ( <>
             {!isLoading ? 
-        <div className="flex gap-4 ml-auto ml-3">
-            <div className="text-sky-600 flex">
-                <div className="text-2xl">👋</div>
+        <div className="flex gap-2 ml-auto ml-3 items-center">
+            <div className="text-sky-600 flex text-sm md:text-base">
+                <div className="text-sm md:text-base">👋</div>
                 
                     {session.data?.user.name && session.data?.user.name.split(' ')[0]}
                     {currentUser?.admin && 'ADMIN'}
@@ -56,13 +56,13 @@ const AuthForm = () => {
                     <div>
                     <Link href='/admin/dashboard'
                             onClick={() => setIsAdminPage(true)}
-                            className="text-blue-800 dark:text-blue-300 font-extralight hover:text-black dark:hover:text-white" >
+                            className="text-blue-800 dark:text-blue-300 font-extralight hover:text-black dark:hover:text-white text-sm md:text-base" >
                                 DASHBOARD
                     </Link>
                     </div>}
             <div>
                 <button onClick={handleSignOut}
-                        className="text-red-800 dark:text-red-300 font-extralight hover:font-normal " >
+                        className="text-red-800 dark:text-red-300 font-extralight hover:font-normal text-sm ml-5 md:text-base" >
                             Sign Out
                 </button>
             </div>

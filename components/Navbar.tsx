@@ -128,7 +128,7 @@ export default function Navbar() {
           {!isAdminPage  ? <div className="flex">
             <Link href="/#home">
               <div className="container flex items-center space-x-2">
-                <h2 className="text-lg md:2xl font-bold">Juan Pablo</h2>
+                <h2 className="text-xs md:text-lg  md:2xl font-bold">Juan Pablo</h2>
              </div> 
             </Link>
             <div >
