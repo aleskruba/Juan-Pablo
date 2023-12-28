@@ -144,8 +144,28 @@ export default function Navbar() {
                 </div>
                         </div>
                         :
-              <div className="container flex items-center space-x-2">
+              <div className="w-screen flex justify-around  ">
+                   <div>
                     <h2 className=" text-teal-400 font-thin text-2xl">ADMIN PAGE  </h2>
+                    </div>
+                    <div>
+                      {currentTheme === "dark" ? (
+                            <button
+                              onClick={() => setTheme("light")}
+                              className="bg-slate-100 p-2 rounded-xl"
+                            >
+                              <RiSunLine size={25} color="black"  />
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => setTheme("dark")}
+                              className="bg-slate-100 p-2 rounded-xl"
+                            >
+                              <RiMoonFill size={25} color="black" />
+                            </button>
+                          )}
+
+                      </div>
               </div>                                  }
   
        

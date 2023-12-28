@@ -56,9 +56,9 @@ const AdminForm = () => {
   });
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center">
+    <div className="w-screen h-screen  flex flex-col items-center justify-center">
       
-      <form className="w-full max-w-md" onSubmit={formik.handleSubmit}>
+      <form className="w-full max-w-md px-10" onSubmit={formik.handleSubmit}>
       <div className='text-center mb-10 text-teal-400 font-thin text-2xl'>Login</div>
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
