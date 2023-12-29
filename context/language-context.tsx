@@ -62,8 +62,8 @@ export default function LanguageContextProvider({
 
     }, []);
 
-    
-  useEffect(() => {
+/*     
+   useEffect(() => {
     const fetchCurrentUser = async() => {
       try {
         const currentUser = await getCurrentUser();
@@ -75,7 +75,7 @@ export default function LanguageContextProvider({
 
     fetchCurrentUser();
   }, []);
-
+ */
     return (
         <LanguageContext.Provider value={{ selected, setSelected ,isAdminPage,setIsAdminPage,currentUser,setCurrentUser}}>
            {selected.length ? children : null}

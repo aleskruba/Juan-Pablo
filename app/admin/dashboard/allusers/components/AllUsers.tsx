@@ -1,16 +1,55 @@
 "use client"
 
 import React, { useEffect, useState,useRef } from 'react'
+import getCurrentUser from '@/app/actions/getCurrentUser'
 import { fetchUsers } from '@/utils'
 import { useLanguageContext } from "@/context/language-context"
 import moment from 'moment';
 import Link from 'next/link';
+import Loading from '@/app/loading';
+
+interface User {
+  id: string;
+  email: string;
+  image: string;
+  name?: string;
+  createdAt: string; // Assuming createdAt is a string for display purposes
+  // Add other properties as per your actual data structure
+}
 
 const Allusers = () => {
     
-    const {currentUser} = useLanguageContext()
+     const {currentUser,setCurrentUser} = useLanguageContext()
     const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
     const lastUserRef = useRef<HTMLDivElement | null>(null);
+    const [allUsers,setAllUsers] = useState<User[]>([])
+    const [isLoading,setIsLoading] = useState(true)
+
+    useEffect(() => {
+      setIsAdminPage(true)
+        const fetchCurrentUser = async() => {
+          try {
+            const currentUser = await getCurrentUser();
+            setCurrentUser(currentUser)
+          } catch (error) {
+            console.error('Error fetching current user:', error);
+          }
+        };
+    
+        fetchCurrentUser();
+      }, []);
+
+
+    useEffect(() => {
+      setIsAdminPage(true)
+      const fetchFunction = async () => {
+          const response = await fetchUsers()
+          setAllUsers(response)
+          setIsLoading(false)
+      }
+      fetchFunction()
+ 
+  },[]) 
 
     const loadMoreUsers = () => {
       setDisplayCount(displayCount + 4); // Increase the displayed count by 5
@@ -27,20 +66,12 @@ const Allusers = () => {
       }, [displayCount]);
     
     const {setIsAdminPage} = useLanguageContext()
- /*    const [allUsers,setAllUsers] = useState([])
-
-    useEffect(() => {
-        setIsAdminPage(true)
-        const fetchFunction = async () => {
-            const response = await fetchUsers()
-            setAllUsers(response)
-
-        }
-        fetchFunction()
-    },[]) */
 
 
-    const allUsers = [
+
+
+
+    const allUsers1 = [
         {
           email: 'john@example.com',
           name: 'John Doe',
@@ -134,9 +165,10 @@ const Allusers = () => {
       ];
       
   return (
-    <div className='mt-10 flex flex-col items-center'>
-    {currentUser?.admin ?  <>
+    <section>
 
+    {currentUser?.admin ?  (
+      <div className='w-full h-full flex flex-col items-center mt-28'>Users
      <div className='mb-4 hover:bg-gray-100 dark:text-black text-xl border px-4 bg-gray-300  border-emerald-300 rounded-lg'>
           <Link href={'/admin/dashboard/'}
               scroll={false}
@@ -144,6 +176,8 @@ const Allusers = () => {
               Go back to dashboard
             </Link>
         </div>
+
+        {!isLoading ? <>
         <div className='mb-8'>
              <h1>Already {allUsers.length} visitors have logged with google</h1>
       </div>
@@ -162,7 +196,7 @@ const Allusers = () => {
               <p>{moment(user.createdAt).format('YYYY:DD:MM HH:mm')}</p>
             </div>
             <div className='col-span-1 flex justify-center items-center'>
-              <img src={user.image} alt={`Profile of ${user.name}`} className='rounded-full w-20 h-20' />
+              <img src={user.image ? user.image : "/avatar.png"} alt={`Profile of ${user.name}`} className='rounded-full w-14 h-14' />
             </div>
           </div>
         );
@@ -177,16 +211,20 @@ const Allusers = () => {
           Go Up
         </button>
       )}
-    </div>
-    </>
-    :  
-   <>
-   <div className='w-screen h-screen flex items-center justify-center'>
-            YOU ARE NOT AUTHORIZED TO SEE THIS PAGE
-    </div>
-   </>
-   }
-    </div>
+
+</div>
+
+</>  : <Loading/>}
+
+</div>
+
+):(
+    <div className='w-screen h-screen flex items-center justify-center'>
+        YOU ARE NOT AUTHORIZED TO SEE THIS PAGE
+</div>
+)}
+
+</section>
   )
 }
 

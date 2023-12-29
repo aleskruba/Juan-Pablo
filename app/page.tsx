@@ -1,5 +1,5 @@
 "use client"
-
+import getCurrentUser from '@/app/actions/getCurrentUser';
 import { useRef,useEffect } from "react"
 import AboutSection from "@/components/AboutSection"
 import HeroSection from "@/components/HeroSection"
@@ -19,7 +19,7 @@ export default  function Home() {
   const ref = useRef<HTMLDivElement>(null)
   const refGuide = useRef<HTMLDivElement>(null)
 
-  const {currentUser} = useLanguageContext()
+  const {currentUser,setCurrentUser} = useLanguageContext()
 
   const {scrollYProgress} = useScroll({
     target:ref,
@@ -46,7 +46,18 @@ export default  function Home() {
     }
   }, [session?.status, router]);
 
+  useEffect(() => {
+    const fetchCurrentUser = async() => {
+      try {
+        const currentUser = await getCurrentUser();
+        setCurrentUser(currentUser)
+      } catch (error) {
+        console.error('Error fetching current user:', error);
+      }
+    };
 
+    fetchCurrentUser();
+  }, []);
 
   return (
     <main className="mx-auto max-w-3xl px-4 sm:px-6 md:max-w-5xl ">

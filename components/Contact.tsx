@@ -7,6 +7,7 @@ import { AiOutlineFacebook, AiOutlineInstagram } from 'react-icons/ai';
 import { useLanguageContext } from "@/context/language-context"
 import { useSession } from 'next-auth/react'
 import AuthForm from './LoginGoogle';
+import toast from 'react-hot-toast'
 
 const validationSchema = Yup.object().shape({
     message: Yup.string().required('Message is required'),
@@ -19,6 +20,7 @@ const Contact = () => {
 
   const {selected,currentUser} = useLanguageContext()
   const session = useSession()
+
 
   const ref = useRef(null)
   const isInView = useInView(ref, {once:true})
@@ -35,9 +37,39 @@ const Contact = () => {
       visible: { x: '0%' },
     };
 
-    const handleSubmit = (values: { message: string }, { resetForm }: FormikHelpers<{ message: string }>) => {
-        // Handle form submission here
+    async function sendMessage(message: string) {
+      try {
+        const response = await fetch('/api/message', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message:message, user:session.data?.user }), // Sending the message in the request body
+        });
+    
+        const data = await response.json();
+  
+        if (data.message === 'success'){
+          toast.success('Message sent successfully')
+        }
+        else {toast.error('Message was has not been sent successfully')}
+        
+        return data;
+      } catch (error) {
+        console.error('Error sending message:', error);
+        return { success: false, message: 'Failed to send the message' };
+      }
+    }
+
+    const handleSubmit = async (values: { message: string }, { resetForm }: FormikHelpers<{ message: string }>) => {
+
+      try {
+        await sendMessage(values.message);
+      
         resetForm(); // Reset the form after submission
+      } catch (error) {
+        console.error('Error handling form submission:', error);
+      }
       };
 
   return (

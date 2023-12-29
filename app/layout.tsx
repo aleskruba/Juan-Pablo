@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/context/theme-context"
 import LanguageContextProvider from "@/context/language-context"
 import ToasterContext from "@/context/toaster-context"
 import Providers from "@/context/auth-context"
+import { Suspense } from "react"
+import Loading from "./loading"
 
 export default function RootLayout({ children }:any) {
 
@@ -33,8 +35,8 @@ export default function RootLayout({ children }:any) {
                   > 
                    <Providers>                    
                       <Navbar />
-                      <ToasterContext/>
-                      {children}
+                        <ToasterContext/>
+                            {children}
                       <Footer />
                     </Providers>
 

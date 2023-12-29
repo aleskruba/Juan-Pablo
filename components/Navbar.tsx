@@ -19,60 +19,60 @@ interface NavItem {
 const NAV_ITEMS_EN: Array<NavItem> = [
   {
     label: "About me",
-    page: "#home",
+    page: "../#home",
   },
 
   {
     label: "Spanish teacher",
-    page: "#about",
+    page: "../#about",
   },
   {
     label: "Tourist guide in Medellin",
-    page: "#projects",
+    page: "../#projects",
   },
   {
     label: "Contact me",
-    page: "#contact",
+    page: "../#contact",
   },
 ]
 
 const NAV_ITEMS_ES: Array<NavItem> = [
   {
     label: "Acerca de mi",
-    page: "#home",
+    page: "../#home",
   },
 
   {
     label: "Profesor de español",
-    page: "#about",
+    page: "../#about",
   },
   {
     label: "Guía turístico en Medellín",
-    page: "#projects",
+    page: "../#projects",
   },
   {
     label: "Contáctame",
-    page: "#contact",
+    page: "../#contact",
   },
 ]
 
 const NAV_ITEMS_CZ: Array<NavItem> = [
   {
     label: "O mně",
-    page: "#home",
+    page: "../#home",
   },
 
   {
     label: "Učitel španělštiny",
-    page: "#about",
+    page: "../#about",
   },
   {
     label: "Průvodce v Medellinu",
-    page: "#projects",
+    page: "../#projects",
   },
   {
     label: "Kontaktujte mě",
-    page: "#contact",
+    page: "../#contact",
   },
 ]
 export default function Navbar() {
@@ -96,14 +96,14 @@ export default function Navbar() {
     }
   };
 
-  const [open,setOpen] =useState(false)
+  //const [open,setOpen] =useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(()=>{
       let handler = (e:MouseEvent) => {
         
         if(menuRef.current &&!menuRef.current.contains(e.target as Node)) {
-            setOpen(false)
+           // setOpen(false)
             setNavbar(false)
 
         }
@@ -126,7 +126,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
 
           {!isAdminPage  ? <div className="flex">
-            <Link href="/#home">
+            <Link href="../#home">
               <div className="container flex items-center space-x-2">
                 <h2 className="text-xs md:text-lg  md:2xl font-bold">Juan Pablo</h2>
              </div> 
@@ -175,7 +175,7 @@ export default function Navbar() {
             <div className="md:hidden"  >
               <button
                 className="p-2 text-gray-800 dark:text-gray-100 rounded-md outline-none focus:border-gray-400 focus:border"
-                onClick={() =>{ setNavbar(!navbar); setOpen(true)}}
+                onClick={() =>{ setNavbar(!navbar); /* setOpen(true) */}}
               
               >
                 {navbar ? <IoMdClose size={30} /> : <IoMdMenu size={30} />}
