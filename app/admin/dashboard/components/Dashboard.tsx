@@ -1,5 +1,5 @@
 "use client"
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import { useLanguageContext } from "@/context/language-context"
 import getCurrentUser from '@/app/actions/getCurrentUser'
 import Link from 'next/link'
@@ -9,12 +9,15 @@ function Dashboard() {
 
     const {currentUser,setCurrentUser,setIsAdminPage} = useLanguageContext()
 
+    const [isLoading,setIsLoading] = useState(true)
+
     useEffect(() => {
       setIsAdminPage(true)
         const fetchCurrentUser = async() => {
           try {
             const currentUser = await getCurrentUser();
             setCurrentUser(currentUser)
+            setIsLoading(false)
           } catch (error) {
             console.error('Error fetching current user:', error);
           }
@@ -53,7 +56,7 @@ function Dashboard() {
           <Link href={'/admin/dashboard/reviews'}
               scroll={false}
             >
-              All Rewievs
+              All Reviews
             </Link>
         </div>
 
@@ -72,7 +75,7 @@ function Dashboard() {
   </div>
     ):(
         <div className='w-screen h-screen flex items-center justify-center'>
-            YOU ARE NOT AUTHORIZED TO SEE THIS PAGE
+           {isLoading  ?'Wait pease.... ' : 'YOU ARE NOT AUTHORIZED TO SEE THIS PAGE ||||'} 
     </div>
     )}
     </>

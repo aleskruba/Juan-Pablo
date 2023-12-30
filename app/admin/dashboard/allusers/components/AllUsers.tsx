@@ -13,7 +13,8 @@ interface User {
   email: string;
   image: string;
   name?: string;
-  createdAt: string; // Assuming createdAt is a string for display purposes
+  createdAt: string;
+  activeUser:boolean // Assuming createdAt is a string for display purposes
   // Add other properties as per your actual data structure
 }
 
@@ -185,11 +186,13 @@ const Allusers = () => {
       {allUsers.slice(0, displayCount).map((user, index) => {
         const isLastUser = index === displayCount - 1;
         return (
+          <Link href={`/admin/dashboard/allusers/${user.id}`}   key={index}>
           <div
             key={index}
             ref={isLastUser ? lastUserRef : null}
-            className='dark:bg-gray-900 p-4 border border-gray-300 rounded grid grid-cols-3 gap-4'
-          >
+            className={` p-4 border border-gray-300 rounded grid grid-cols-3 gap-4 ${
+              user.activeUser ? 'bg-blue-500 dark:bg-blue-300 dark:text-black' : 'dark:bg-gray-800'
+            }`}>
             <div className='col-span-2'>
               <p className='font-bold'>{user.email}</p>
               <p>{user.name}</p>
@@ -199,6 +202,7 @@ const Allusers = () => {
               <img src={user.image ? user.image : "/avatar.png"} alt={`Profile of ${user.name}`} className='rounded-full w-14 h-14' />
             </div>
           </div>
+        </Link>
         );
       })}
       {displayCount < allUsers.length && (

@@ -2,7 +2,7 @@
 
 
 import React, { useState, useEffect } from 'react'
-import AuthSocialButton from './ButtonGoogle'
+import AuthSocialButton from './ButtonGooglenotWork'
 import {BsGoogle} from 'react-icons/bs'
 import toast from 'react-hot-toast'
 import { signIn, signOut,useSession } from 'next-auth/react'
@@ -17,16 +17,6 @@ const AuthForm = () => {
     const [isLoading,setIsLoading] = useState(false)
 
     const {currentUser,setIsAdminPage} = useLanguageContext()
-
-/*      useEffect(() => {
-        const isFirstTimeLogin = localStorage.getItem('firstTimeLogin');
-    
-        if (session?.status === 'authenticated' && isFirstTimeLogin === null) {
-          localStorage.setItem('firstTimeLogin', 'true');
-          router.push('/#contact');
-        }
-      }, [session?.status, router]); 
- */
 
       
     const socialAction = (action:string) => {

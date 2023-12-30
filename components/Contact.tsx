@@ -75,7 +75,7 @@ const Contact = () => {
   return (
     <section id="contact">
             <div className="my-12 pb-12 md:pt-16 md:pb-20 flex items-center flex-col">
-            <h1 className="text-center  pt-24 md:pt-6 font-bold text-4xl">   {selected  === 'Us' && 'Contact Me'}{selected  === 'Es' && 'Contáctame'}{selected  === 'Cz' && 'Napište mě'} </h1>
+            <h1 className="text-center  pt-24 md:pt-6 font-bold text-4xl">   {selected  === 'Us' && 'Contact Me'}{selected  === 'Es' && 'Contáctame'}{selected  === 'Cz' && 'Napište mi'} </h1>
 
             <div className='flex text-center w-full h-full flex-col md:flex-row items-center justify-center md:items-center'>
                {session && session.data?.user ? 

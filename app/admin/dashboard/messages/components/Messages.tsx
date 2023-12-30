@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { fetchMessages } from '@/utils'
 import moment from 'moment';
 import Loading from '@/app/loading'
-import { FaRegTrashAlt } from "react-icons/fa";
 
 interface Message {
     id: string;
@@ -156,7 +155,7 @@ function Messages() {
     {currentUser?.admin ? (
 
     <div className='w-full h-full flex flex-col items-center mt-28'>Messages
-     <div className='mb-4 hover:bg-gray-100 dark:text-black text-xl border px-4 bg-gray-300  border-emerald-300 rounded-lg'>
+     <div className='mb-4 hover:bg-gray-100 darl dark:text-black text-xl border px-4 bg-gray-300  border-emerald-300 rounded-lg'>
           <Link href={'/admin/dashboard/'}
               scroll={false}
             >
@@ -166,17 +165,17 @@ function Messages() {
         {!isLoading ? <>
 
         <div className='mb-8'>
-             <h1>You have received  {allMessagesI.length} messages</h1>
+             <h1>You have received  {allMessages.length} messages</h1>
       </div>
       <div className='flex flex-col  gap-4 md:w-[60%]'>
-      {allMessagesI.slice(0, displayCount).map((message, index) => {
+      {allMessages.slice(0, displayCount).map((message, index) => {
   const isLastMessage = index === displayCount - 1;
   return (
 <Link href={`/admin/dashboard/messages/${message.id}`}   key={index}>
 <div
 
   ref={isLastMessage ? lastUserRef : null}
-  className='dark:bg-gray-900 mx-2 px-2 pt-2 border border-gray-300 rounded grid  gap-4 relative'
+  className='dark:bg-gray-800 mx-2 px-2 pt-2 border border-gray-300 rounded grid  gap-4 relative hover:bg-gray-200 dark:hover:bg-gray-600 p-4 rounded-md'
 >
   {/* First Row */}
   <div className='col-span-1 '>
@@ -191,8 +190,8 @@ function Messages() {
 {/*   <div className='absolute text-2xl top-2 right-2'>
     <FaRegTrashAlt />
   </div> */}
-  <div className='absolute top-2 right-2'>
-    <h1 className='text-red-700 font-bold'>New </h1>
+  <div className='absolute bottom-2 right-2'>
+    <h1 className='text-red-700 dark:text-red-500 font-bold'>New </h1>
   </div>
 
   {/* Second Row */}
@@ -205,7 +204,7 @@ function Messages() {
   );
 })}
 
-      {displayCount < allMessagesI.length && (
+      {displayCount < allMessagesI.length && allMessages.length > 4 && (
         <button onClick={loadMoreMessages} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
           Load More 4 Messages
         </button>

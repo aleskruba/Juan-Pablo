@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/app/libs/prismadb';
-import { getServerSession } from 'next-auth';
-import { useSession } from 'next-auth/react'
 
 
 export async function POST(req: NextRequest) {
@@ -18,8 +16,7 @@ export async function POST(req: NextRequest) {
                 console.log(receivedMessage,userEmail)
 
                 if (!data.message || data.message.trim() === '') {
-                    // If message is empty or not provided, return a bad request response
-                      return new Response(JSON.stringify({ message:'Message required' }), { status: 400 });
+                       return new Response(JSON.stringify({ message:'Message required' }), { status: 400 });
                   }
                   
                   const user = await prisma.user.findUnique({
@@ -29,18 +26,16 @@ export async function POST(req: NextRequest) {
                   });
                 
                   if (!user) {
-                    // If the user does not exist, handle accordingly (return an error, etc.)
-                    return new Response(JSON.stringify({ message: 'User not found' }), { status: 404 });
+                     return new Response(JSON.stringify({ message: 'User not found' }), { status: 404 });
                   }
                 
-                  // Create the message associated with the found user
+  
                   const newMessage = await prisma.message.create({
                     data: {
                       body: receivedMessage,
                       sender: {
-                        connect: { id: user.id }, // Connect the message to the user by their ID
-                      },
-                      // Add other properties of the message as needed
+                        connect: { id: user.id },                       },
+              
                     },
                   });
                 
@@ -58,4 +53,19 @@ export async function POST(req: NextRequest) {
             return new Response(JSON.stringify({message: 'Method Not Allowed'  }), { status: 500 });
             }
  
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const data = await req.json();
+    const message =   await prisma.message.delete({
+      where: {
+        id: data.id,
+      },
+    });
+
+     return new Response(JSON.stringify({message:message, status: 200 }));
+  } catch (e) 
+    { return new Response(JSON.stringify({message: 'Method Not Allowed'  }), { status: 500 }); }
+    
 }

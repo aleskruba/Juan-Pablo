@@ -7,6 +7,8 @@ export async function fetchUsers() {
     return data.users
 }
 
+
+
 export async function fetchMessages() {
 
   const response = await fetch(`/api/messages`)
@@ -14,6 +16,59 @@ export async function fetchMessages() {
 
 return data.messages
 }
+
+
+export async function fetchMessage(id:string) {
+
+  const response = await fetch('/api/messageDetail', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id: id }),
+  });
+  
+
+return response
+}
+
+export async function fetchUser(id:string) {
+
+  const response = await fetch('/api/user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id: id }),
+  });
+  
+
+return response
+}
+
+type Values = {
+  id: string;
+  activeUser: boolean;
+};
+
+export async function fetchActiveUser(values: Values) {
+  try {
+    const response = await fetch('/api/activeUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ values }), // Sending the message in the request body
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error sending message:', error);
+    return { success: false, message: 'Failed to save Actve User state' };
+  }
+}
+  
 
 
 export async function sendMessage(message: string) {

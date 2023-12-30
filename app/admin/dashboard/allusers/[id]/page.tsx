@@ -1,20 +1,21 @@
 import React from 'react';
-import MessageDetail from './MessageDetail';
+import UserDetail from './UserDetail';
 
-interface MessageDetailsProps {
+
+interface userDetailsProps {
   params: {
     id: string; 
   };
 }
 
-const MessageDetails: React.FC<MessageDetailsProps> = ({ params }) => {
+const MessageDetails: React.FC<userDetailsProps> = ({ params }) => {
   const { id } = params;
 
   
 
   return (
     <div className='flex w-screen h-screen justify-center mt-28'>
-      <MessageDetail id={id} />
+      <UserDetail id={id} />
     </div>
   );
 };
