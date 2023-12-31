@@ -123,9 +123,9 @@ const handleDeleteConfirmation = () => {
 
     {showDeleteModal && (
     <Modal
-  isOpen={showDeleteModal}
-  onRequestClose={closeDeleteModal}
-  contentLabel="Delete User Modal"
+    isOpen={showDeleteModal as boolean} // Explicitly specify isOpen prop as boolean
+          onRequestClose={closeDeleteModal as () => void} // Explicitly specify onRequestClose prop
+        contentLabel="Delete User Modal"
   ariaHideApp={false}
   style={{
     overlay: {
