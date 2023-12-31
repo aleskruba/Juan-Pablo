@@ -39,7 +39,10 @@ const AuthForm = () => {
             <div className="text-sky-600 flex text-sm md:text-base">
                 <div className="text-sm md:text-base">👋</div>
                 
-                    {session.data?.user.name ? session.data?.user.name.split(' ')[0] : session.data?.user.email}
+
+                    {
+                    currentUser?.admin ? 'ADMIN' : 
+                    session.data?.user.name ? session.data?.user.name.split(' ')[0] : session.data?.user.email}
               
                 </div>
                {currentUser?.admin && 
