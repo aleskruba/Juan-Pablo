@@ -121,6 +121,7 @@ const handleDeleteConfirmation = () => {
   <div className='text-red-800 dark:text-red-300 text-3xl mt-10 flex justify-end cursor-pointer'>
     <FaRegTrashAlt onClick={() =>openDeleteModal()}/>
 
+    {showDeleteModal && (
     <Modal
   isOpen={showDeleteModal}
   onRequestClose={closeDeleteModal}
@@ -158,7 +159,7 @@ const handleDeleteConfirmation = () => {
                   </div>
               </div>
             </div>
-        </Modal>
+        </Modal>     )}
   </div>    
         </> : 
         <div>wait please .... </div>

@@ -172,7 +172,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ id }) => {
     </div>
   
     <FaRegTrashAlt onClick={() =>openDeleteModal()}/>
-
+    {showDeleteModal && (
     <Modal
   isOpen={showDeleteModal}
   onRequestClose={closeDeleteModal}
@@ -210,7 +210,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ id }) => {
                   </div>
               </div>
             </div>
-        </Modal>
+        </Modal>     )}
   
   </div>    
         </> : 
