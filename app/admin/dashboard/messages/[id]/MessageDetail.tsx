@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { FaRegTrashAlt } from "react-icons/fa";
 import Link from 'next/link';
-import Modal from 'react-modal'
+
 
 interface MessageDetailProps {
   id: string; 
@@ -28,7 +28,7 @@ const MessageDetail: React.FC<MessageDetailProps> = ({ id }) => {
 
     const [message, setMessage] = useState<Message | null>(null);
     const [isloading,setIsLoading] = useState(true)
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
     useEffect(() => {
         const fetchFunction = async () => {
@@ -41,12 +41,12 @@ const MessageDetail: React.FC<MessageDetailProps> = ({ id }) => {
        fetchFunction()
     },[])
 
-    const openDeleteModal = () => {
-      setShowDeleteModal(true);
+    const openDeleteConfirmation = () => {
+      setShowDeleteConfirmation(true);
     };
   
-    const closeDeleteModal = () => {
-      setShowDeleteModal(false);
+    const closeDeleteConfirmation = () => {
+      setShowDeleteConfirmation(false);
     };
 
 const deleteMessageFunction = async (id: string)  => {
@@ -67,10 +67,10 @@ const deleteMessageFunction = async (id: string)  => {
 
 }
 
-const handleDeleteConfirmation = () => {
-  deleteMessageFunction(id);
-  closeDeleteModal();
-};
+  const handleDeleteConfirmation = () => {
+    deleteMessageFunction(id);
+    closeDeleteConfirmation();
+  };
     return (
     <div>
       <div className='flex flex-col justify-center items-center mb-8'>
@@ -119,47 +119,23 @@ const handleDeleteConfirmation = () => {
     </div>
   </div>
   <div className='text-red-800 dark:text-red-300 text-3xl mt-10 flex justify-end cursor-pointer'>
-    <FaRegTrashAlt onClick={() =>openDeleteModal()}/>
-
-    {showDeleteModal && (
-    <Modal
-    isOpen={showDeleteModal as boolean} // Explicitly specify isOpen prop as boolean
-          onRequestClose={closeDeleteModal as () => void} // Explicitly specify onRequestClose prop
-        contentLabel="Delete User Modal"
-  ariaHideApp={false}
-  style={{
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    content: {
-      marginTop: 'auto',
-      marginBottom: 'auto',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      width: '340px',
-      height: '120px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  }}
->
+    <FaRegTrashAlt onClick={() =>openDeleteConfirmation()}/>
+   
+   
+    {showDeleteConfirmation && (
 
 
-          <div className='w-full h-full  flex items-center justify-center flex-col'>
-           <div className=' flex items-center justify-center flex-col w-[320px] h-[120px]'>
+
+          <div className='fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center'>
+            <div className='bg-white p-8 rounded-lg'>
               <h2 className='text-red-700 font-semibold'>Are you sure to delete the message?</h2>
-                <div className='flex gap-8 mt-4 text-2xl'>
+                <div className='flex justify-center gap-8 mt-4 text-2xl'>
                   <button onClick={() => handleDeleteConfirmation()} className='text-red-800 hover:text-red-500 hover:scale-150'>Yes</button>
-                  <button onClick={() => closeDeleteModal()} className='text-gray-900 hover:text-gray-500 hover:scale-150'>No</button>
+                  <button onClick={() => closeDeleteConfirmation()} className='text-gray-900 hover:text-gray-500 hover:scale-150'>No</button>
                   </div>
               </div>
             </div>
-        </Modal>     )}
+          )}
   </div>    
         </> : 
         <div>wait please .... </div>
