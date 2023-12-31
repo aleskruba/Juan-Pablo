@@ -284,7 +284,7 @@ const Allusers = () => {
 
 ):(
     <div className='w-screen h-screen flex items-center justify-center'>
-        YOU ARE NOT AUTHORIZED TO SEE THIS PAGE
+         {isLoading ? 'WAIT PLEASE ... ' : 'YOU ARE NOT AUTHORIZED TO SEE THIS PAGE'} 
 </div>
 )}
 
