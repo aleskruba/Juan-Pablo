@@ -36,7 +36,7 @@ function Dashboard() {
     </div>
 
   <div className='w-[240px] mt-10 '>
-        <div className='mb-4 hover:text-gray-500 text-xl'>
+        <div className='mb-4 bg-blue-500 hover:bg-blue-700 text-xl text-white rounded-md text-center px-2 py-2'>
           <Link href={'/admin/dashboard/allusers'}
               scroll={false}
             >
@@ -44,7 +44,7 @@ function Dashboard() {
             </Link>
         </div>
 
-        <div className='mb-4 hover:text-gray-500 text-xl'>
+        <div className='mb-4 bg-blue-500 hover:bg-blue-700 text-xl text-white rounded-md text-center px-2 py-2'>
           <Link href={'/admin/dashboard/messages'}
               scroll={false}
             >
@@ -52,7 +52,7 @@ function Dashboard() {
             </Link>
         </div>
 
-        <div className='mb-4 hover:text-gray-500 text-xl'>
+        <div className='mb-4 bg-blue-500 hover:bg-blue-700 text-xl  text-white rounded-md text-center px-2 py-2'>
           <Link href={'/admin/dashboard/reviews'}
               scroll={false}
             >
@@ -60,7 +60,7 @@ function Dashboard() {
             </Link>
         </div>
 
-        <div className='mb-4 mt-10 hover:text-gray-500 text-xl'>
+        <div className='mt-16 mb-4 bg-green-500 hover:bg-green-700 text-xl  text-white rounded-md text-center px-2 py-2'>
           <Link href={'/'}
               scroll={false}
               onClick={() => setIsAdminPage(false)}

@@ -18,7 +18,23 @@ export async function POST(req: NextRequest) {
                 sender: true, // Include the sender relation
               },
             });
-               
+
+            const updatedMessage = await prisma.message.update({
+              where: {
+                id: data.id,
+              },
+              data: {
+                seen: {
+                  connect: {
+                    id: message?.sender.id, // Connect the user who viewed the message
+                  },
+                },
+              },
+              include: {
+                sender: true, // Include the sender relation
+              },
+            });
+              
               return new Response(JSON.stringify({ message }), { status: 200 });
                                
               }

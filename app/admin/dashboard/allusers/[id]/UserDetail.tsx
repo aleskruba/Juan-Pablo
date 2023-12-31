@@ -88,16 +88,16 @@ const UserDetail: React.FC<UserDetailProps> = ({ id }) => {
     <div className=' px-8'>
       {/* Other components and JSX */}
       <div className='flex flex-col justify-center items-center mb-8'>
-        <div className='mb-4 hover:bg-gray-100 dark:text-black text-xl border px-4 bg-gray-300 border-emerald-300 rounded-lg w-[250px]'>
+      <div className='mb-4 bg-blue-500 hover:bg-blue-700 text-white text-xl border px-4 py-2  border-emerald-300 rounded-lg'>
           <Link href={'/admin/dashboard/'} scroll={false}>
             Go back to dashboard
           </Link>
         </div>
-        <div className='mb-4 hover:bg-gray-100 dark:text-black text-xl border px-4 bg-gray-300 border-emerald-300 rounded-lg w-[250px]'>
+ {/*        <div className='mb-4 hover:bg-gray-100 dark:text-black text-xl border px-4 bg-gray-300 border-emerald-300 rounded-lg w-[250px]'>
           <Link href={'/admin/dashboard/allusers'} scroll={false}>
             Go back to users
           </Link>
-        </div>
+        </div> */}
       </div>
 
       {!isLoading ? (

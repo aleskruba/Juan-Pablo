@@ -15,6 +15,7 @@ interface Message {
       email: string;
       image: string;
       name?: string; 
+      seenMessageIds:string[];
     };
    }
 
@@ -39,6 +40,8 @@ function Messages() {
     
         fetchCurrentUser();
       }, []);
+
+
 
       useEffect(() => {
          const fetchFunction = async () => {
@@ -147,15 +150,20 @@ function Messages() {
             },
           ];
           
-       
+
+          const sortedMessages = allMessages.slice(0).sort((a, b) => {
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          });
           
-  return (
+          const totalSeenMessageIds = allMessages[0]?.sender.seenMessageIds.length;
+
+          return (
     <section>
 
     {currentUser?.admin ? (
 
-    <div className='w-full h-full flex flex-col items-center mt-28'>Messages
-     <div className='mb-4 hover:bg-gray-100 darl dark:text-black text-xl border px-4 bg-gray-300  border-emerald-300 rounded-lg'>
+    <div className='w-full h-full flex flex-col items-center mt-28'>
+     <div className='mb-4 bg-blue-500 hover:bg-blue-700 text-white text-xl border px-4 py-2  border-emerald-300 rounded-lg'>
           <Link href={'/admin/dashboard/'}
               scroll={false}
             >
@@ -165,18 +173,19 @@ function Messages() {
         {!isLoading ? <>
 
         <div className='mb-8'>
-             <h1>You have received  {allMessages.length} messages</h1>
+             <h1>You have received  {allMessages.length} messages , unread messages {allMessages.length- totalSeenMessageIds}</h1>
       </div>
       <div className='flex flex-col  gap-4 md:w-[60%]'>
-      {allMessages.slice(0, displayCount).map((message, index) => {
+      {sortedMessages.slice(0, displayCount).map((message, index) => {
   const isLastMessage = index === displayCount - 1;
   return (
 <Link href={`/admin/dashboard/messages/${message.id}`}   key={index}>
 <div
 
   ref={isLastMessage ? lastUserRef : null}
-  className='dark:bg-gray-800 mx-2 px-2 pt-2 border border-gray-300 rounded grid  gap-4 relative hover:bg-gray-200 dark:hover:bg-gray-600 p-4 rounded-md'
->
+  className={`dark:bg-gray-800 mx-2 px-2 pt-2 border border-gray-300 grid gap-4 relative hover:bg-gray-200 dark:hover:bg-gray-600 p-4 rounded-md ${
+    !message.sender.seenMessageIds.includes(message?.id) ? 'bg-blue-300' : ''
+  }`}>
   {/* First Row */}
   <div className='col-span-1 '>
     <p className='font-bold'>{moment(message.createdAt).format('DD.MM YYYY HH:mm')}</p>
@@ -190,9 +199,11 @@ function Messages() {
 {/*   <div className='absolute text-2xl top-2 right-2'>
     <FaRegTrashAlt />
   </div> */}
+  {!message.sender.seenMessageIds.includes(message?.id) && (
   <div className='absolute bottom-2 right-2'>
-    <h1 className='text-red-700 dark:text-red-500 font-bold'>New </h1>
+    <h1 className='text-red-600 dark:text-red-500 font-bold'>New </h1>
   </div>
+  )}
 
   {/* Second Row */}
   <div className='col-span-3'>

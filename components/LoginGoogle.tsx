@@ -40,7 +40,7 @@ const AuthForm = () => {
                 <div className="text-sm md:text-base">👋</div>
                 
                     {session.data?.user.name && session.data?.user.name.split(' ')[0]}
-                    {currentUser?.admin && 'ADMIN'}
+              
                 </div>
                {currentUser?.admin && 
                     <div>
@@ -51,10 +51,10 @@ const AuthForm = () => {
                     </Link>
                     </div>}
             <div>
-                <button onClick={handleSignOut}
+                <div onClick={handleSignOut}
                         className="text-red-800 dark:text-red-300 font-extralight hover:font-normal text-sm ml-5 md:text-base" >
                             Sign Out
-                </button>
+                </div>
             </div>
         </div>
      :

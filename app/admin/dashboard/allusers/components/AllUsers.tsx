@@ -7,6 +7,8 @@ import { useLanguageContext } from "@/context/language-context"
 import moment from 'moment';
 import Link from 'next/link';
 import Loading from '@/app/loading';
+import { Switch } from '@headlessui/react';
+
 
 interface User {
   id: string;
@@ -20,11 +22,30 @@ interface User {
 
 const Allusers = () => {
     
-     const {currentUser,setCurrentUser} = useLanguageContext()
-    const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
-    const lastUserRef = useRef<HTMLDivElement | null>(null);
-    const [allUsers,setAllUsers] = useState<User[]>([])
-    const [isLoading,setIsLoading] = useState(true)
+      const {currentUser,setCurrentUser} = useLanguageContext()
+      const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
+      const lastUserRef = useRef<HTMLDivElement | null>(null);
+      const [allUsers,setAllUsers] = useState<User[]>([])
+      const [isLoading,setIsLoading] = useState(true)
+      const [search,setSearch] = useState("")
+      const [enabled, setEnabled] = useState(false);
+
+      const filterUsers = (searchTerm: string) => {
+        return allUsers.filter((item) => {
+          const matchesSearch =
+            searchTerm.toLowerCase() === '' ||
+            item.email.toLowerCase().includes(searchTerm) ||
+            (item.name && item.name.toLowerCase().includes(searchTerm));
+      
+          if (enabled) {
+            // Filter based on activeUser property when enabled is true
+            return matchesSearch && item.activeUser;
+          } else {
+            return matchesSearch;
+          }
+        });
+      };
+      
 
     useEffect(() => {
       setIsAdminPage(true)
@@ -70,7 +91,7 @@ const Allusers = () => {
 
 
 
-
+      
 
     const allUsers1 = [
         {
@@ -169,8 +190,8 @@ const Allusers = () => {
     <section>
 
     {currentUser?.admin ?  (
-      <div className='w-full h-full flex flex-col items-center mt-28'>Users
-     <div className='mb-4 hover:bg-gray-100 dark:text-black text-xl border px-4 bg-gray-300  border-emerald-300 rounded-lg'>
+      <div className='w-full h-full flex flex-col items-center mt-28'>
+     <div className='mb-4 bg-blue-500 hover:bg-blue-700 text-white text-xl border px-4 py-2  border-emerald-300 rounded-lg'>
           <Link href={'/admin/dashboard/'}
               scroll={false}
             >
@@ -182,8 +203,47 @@ const Allusers = () => {
         <div className='mb-8'>
              <h1>Already {allUsers.length} visitors have logged with google</h1>
       </div>
+
+      {/* FILTERS  */}
+        <div className='flex gap-3'>
+          
+          <div className='w-[200px] h-[25px] mb-4'>
+                <input
+                  placeholder='search by name or email'
+                  className='shadow w-full h-8 py-3 px-3 bg-gray-200 rounded-md'
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
+                />
+              </div>
+          <div>
+
+          <div className='flex flex-col justify-center items-center'>
+           <Switch
+                    checked={enabled}
+                    onChange={setEnabled}
+                    value='Active User'
+                    className={`${
+                      enabled ? 'bg-blue-600' : 'bg-gray-200'
+                    } relative inline-flex h-6 w-11 items-center rounded-full`}
+                  >
+                    <span className='sr-only'>Enable notifications</span>
+                    <span
+                      className={`${
+                        enabled ? 'translate-x-6' : 'translate-x-1'
+                      } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                    />
+                  </Switch>
+
+                  <div>
+                    ACTIVE USERS
+                  </div>
+                </div>
+            </div>
+      
+      </div>
+      
       <div className='flex flex-col gap-4'>
-      {allUsers.slice(0, displayCount).map((user, index) => {
+      {filterUsers(search)
+              .slice(0, displayCount).map((user, index) => {
         const isLastUser = index === displayCount - 1;
         return (
           <Link href={`/admin/dashboard/allusers/${user.id}`}   key={index}>
@@ -195,8 +255,8 @@ const Allusers = () => {
             }`}>
             <div className='col-span-2'>
               <p className='font-bold'>{user.email}</p>
-              <p>{user.name}</p>
-              <p>{moment(user.createdAt).format('YYYY:DD:MM HH:mm')}</p>
+              <p>Name: {user.name}</p>
+              <p>Registered: {moment(user.createdAt).format('YYYY:DD:MM HH:mm')}</p>
             </div>
             <div className='col-span-1 flex justify-center items-center'>
               <img src={user.image ? user.image : "/avatar.png"} alt={`Profile of ${user.name}`} className='rounded-full w-14 h-14' />
@@ -205,7 +265,7 @@ const Allusers = () => {
         </Link>
         );
       })}
-      {displayCount < allUsers.length && (
+         {displayCount < filterUsers(search).length && (
         <button onClick={loadMoreUsers} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
           Load More 4 Users
         </button>

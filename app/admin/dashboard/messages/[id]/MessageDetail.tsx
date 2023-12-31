@@ -41,6 +41,8 @@ const MessageDetail: React.FC<MessageDetailProps> = ({ id }) => {
        fetchFunction()
     },[])
 
+    
+
     const openDeleteConfirmation = () => {
       setShowDeleteConfirmation(true);
     };
@@ -74,20 +76,20 @@ const deleteMessageFunction = async (id: string)  => {
     return (
     <div>
       <div className='flex flex-col justify-center items-center mb-8'>
-          <div className='mb-4 hover:bg-gray-100 dark:text-black text-xl border px-4 bg-gray-300  border-emerald-300 rounded-lg w-[250px]'>
+      <div className='mb-4 bg-blue-500 hover:bg-blue-700 text-white text-xl border px-4 py-2  border-emerald-300 rounded-lg'>
             <Link href={'/admin/dashboard/'}
                 scroll={false}
               >
                 Go back to dashboard
               </Link>
           </div>
-          <div className='mb-4 hover:bg-gray-100 dark:text-black text-xl border px-4 bg-gray-300  border-emerald-300 rounded-lg w-[250px]'>
+{/*           <div className='mb-4 hover:bg-gray-100 dark:text-black text-xl border px-4 bg-gray-300  border-emerald-300 rounded-lg w-[250px]'>
             <Link href={'/admin/dashboard/messages'}
                 scroll={false}
               >
                 Go back to messages
               </Link>
-          </div>
+          </div> */}
           </div>
         {!isloading ? <> 
           <div className='grid grid-cols-2 md:grid-cols-4 gap-4 dark:bg-gray-800 bg-gray-200 p-4 rounded-md'>
