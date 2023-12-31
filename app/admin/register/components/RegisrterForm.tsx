@@ -26,7 +26,7 @@ const RegisterForm = () => {
       email: '',
       password: '',
       repeatPassword: '',
-      admin:true
+      admin:false
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('Required'),
