@@ -2,22 +2,19 @@
 import React,{useEffect,useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useLanguageContext } from '@/context/language-context';
+
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
+import { signIn } from 'next-auth/react';
 
 type backendError = string | null
 
-const RegisterForm = () => {
-  const { setIsAdminPage } = useLanguageContext();
+const RegisterNewUserForm = () => {
 
   const router = useRouter()
 
   const [backendError,setBackendError] = useState<backendError>(null)
 
-  useEffect(()=>{
-    setIsAdminPage(true)
-  },[])
 
 
   // Set up Formik for form handling and validation
@@ -26,7 +23,7 @@ const RegisterForm = () => {
       email: '',
       password: '',
       repeatPassword: '',
-      admin:true,
+      admin:false
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('Required'),
@@ -58,7 +55,7 @@ const RegisterForm = () => {
      
         if (response.ok) {
           toast.success('Registered successfully')
-            router.push('/admin/dashboard')  
+            router.push('/#contact')  
         }
           
  
@@ -68,6 +65,11 @@ const RegisterForm = () => {
         }
 
         await response.json();
+
+        signIn('credentials',{
+            ...values,
+            redirect:false
+        })
      
         // Reset the form if needed
         resetForm();
@@ -81,10 +83,10 @@ const RegisterForm = () => {
   });
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center">
+    <div className="w-full h-full mt-28 mb-16 flex items-center justify-center">
       
       <form className="w-full max-w-md px-10" onSubmit={formik.handleSubmit}>
-      <div className='text-center mb-10 text-teal-400 font-thin text-2xl'>Register a new admin</div>
+      <div className='text-center mb-10 text-teal-400 font-thin text-2xl'>Register a new user</div>
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
             Email
@@ -96,7 +98,7 @@ const RegisterForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white"
             placeholder="Enter your email"
             autoComplete="email"
           />
@@ -115,7 +117,7 @@ const RegisterForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white"
             placeholder="Enter your password"
             autoComplete="new-password"
           />
@@ -156,4 +158,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default RegisterNewUserForm;

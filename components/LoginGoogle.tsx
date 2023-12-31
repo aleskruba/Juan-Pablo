@@ -2,7 +2,7 @@
 
 
 import React, { useState, useEffect } from 'react'
-import AuthSocialButton from './ButtonGooglenotWork'
+import AuthSocialButton from './AuthSocialButton'
 import {BsGoogle} from 'react-icons/bs'
 import toast from 'react-hot-toast'
 import { signIn, signOut,useSession } from 'next-auth/react'
@@ -39,7 +39,7 @@ const AuthForm = () => {
             <div className="text-sky-600 flex text-sm md:text-base">
                 <div className="text-sm md:text-base">👋</div>
                 
-                    {session.data?.user.name && session.data?.user.name.split(' ')[0]}
+                    {session.data?.user.name ? session.data?.user.name.split(' ')[0] : session.data?.user.email}
               
                 </div>
                {currentUser?.admin && 

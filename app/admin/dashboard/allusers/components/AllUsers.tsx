@@ -34,7 +34,7 @@ const Allusers = () => {
         return allUsers.filter((item) => {
           const matchesSearch =
             searchTerm.toLowerCase() === '' ||
-            item.email.toLowerCase().includes(searchTerm) ||
+            item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
             (item.name && item.name.toLowerCase().includes(searchTerm));
       
           if (enabled) {
@@ -210,7 +210,7 @@ const Allusers = () => {
           <div className='w-[200px] h-[25px] mb-4'>
                 <input
                   placeholder='search by name or email'
-                  className='shadow w-full h-8 py-3 px-3 bg-gray-200 rounded-md'
+                  className='shadow w-full h-8 py-3 px-3 bg-gray-200 rounded-md text-black '
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
                 />
               </div>

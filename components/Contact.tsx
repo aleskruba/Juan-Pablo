@@ -8,6 +8,7 @@ import { useLanguageContext } from "@/context/language-context"
 import { useSession } from 'next-auth/react'
 import AuthForm from './LoginGoogle';
 import toast from 'react-hot-toast'
+import Link from 'next/link';
 
 const validationSchema = Yup.object().shape({
     message: Yup.string().required('Message is required'),
@@ -81,7 +82,7 @@ const Contact = () => {
                {session && session.data?.user ? 
               
                   <div className='mt-2 text-xl '>
-                    {session.data?.user?.name || currentUser?.email} , {currentUser?.admin && 'ADMIN'} 
+                    {session.data?.user?.name || session.data?.user?.email } , {currentUser?.admin && 'ADMIN'} 
                    
                    {!currentUser?.admin &&
                      <Fragment> 
@@ -113,6 +114,8 @@ const Contact = () => {
                      <div className='w-full flex justify-center mt-2'>
                       <div className='w-[140px] text-base inset-0 text-center'><AuthForm/></div>   
                       </div>
+                      <div className='mt-6'>Or register here <Link href='/registernewuser' className='bg-blue-500 hover:bg-blue-300 py-1 px-2 text-white rounded-sm'>register</Link></div>
+                      <div className='mt-6'>Already registered Log in here <Link href='/login' className='bg-blue-500 hover:bg-blue-300 py-1 px-2 text-white rounded-sm'>login</Link></div>
                 </motion.div>
            </> }
 

@@ -184,7 +184,7 @@ function Messages() {
 
   ref={isLastMessage ? lastUserRef : null}
   className={`dark:bg-gray-800 mx-2 px-2 pt-2 border border-gray-300 grid gap-4 relative hover:bg-gray-200 dark:hover:bg-gray-600 p-4 rounded-md ${
-    !message.sender.seenMessageIds.includes(message?.id) ? 'bg-blue-300' : ''
+    !message.sender.seenMessageIds.includes(message?.id) ? 'bg-blue-300 dark:bg-green-500 ' : ''
   }`}>
   {/* First Row */}
   <div className='col-span-1 '>
