@@ -3,11 +3,15 @@ import React,{useEffect,useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLanguageContext } from '@/context/language-context';
+import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 
 type backendError = string | null
 
 const RegisterForm = () => {
   const { setIsAdminPage } = useLanguageContext();
+
+  const router = useRouter()
 
   const [backendError,setBackendError] = useState<backendError>(null)
 
@@ -47,8 +51,16 @@ const RegisterForm = () => {
         });
 
         console.log(response)
-
-        
+    
+        if (!response.ok) {
+          toast.error('Soemthing went wrong')
+      }
+     
+        if (response.ok) {
+          toast.success('Registered successfully')
+            router.push('/admin/dashboard')  
+        }
+          
  
         if (!response.ok && (response.status===422 || response.status===400 || response.status===409))  {
           setBackendError(response.statusText)
