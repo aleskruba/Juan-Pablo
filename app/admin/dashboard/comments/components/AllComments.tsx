@@ -37,6 +37,10 @@ function AllComments() {
           try {
             const currentUser = await getCurrentUser();
             setCurrentUser(currentUser)
+            const response =   await fetchComments()
+            setAllComments(response)
+            setIsLoading(false)
+            router.refresh()
           } catch (error) {
             console.error('Error fetching current user:', error);
           }
@@ -46,7 +50,7 @@ function AllComments() {
       }, []);
 
 
-      useEffect(() => {
+/*       useEffect(() => {
          const fetchFunction = async () => {
     
             const response =   await fetchComments()
@@ -55,7 +59,7 @@ function AllComments() {
             router.refresh()
         }
         fetchFunction()
-    },[]) 
+    },[])  */
 
     const loadMoreMessages = () => {
         setDisplayCount(displayCount + 4); // Increase the displayed count by 5
