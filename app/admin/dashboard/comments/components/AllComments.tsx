@@ -49,7 +49,7 @@ function AllComments() {
          const fetchFunction = async () => {
            // const response = await fetchComments()
 
-            const response = await fetch(url,{ next: { revalidate: 100 } })
+            const response = await fetch(url,{ next: { revalidate: 0 } })
             const data = await response.json()
 
             setAllComments(data.comments)
