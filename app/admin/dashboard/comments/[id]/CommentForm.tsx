@@ -52,15 +52,15 @@ interface Comment {
             toast.success('Comment updated successfully')
             router.refresh()
 
-            const timestamp = Date.now(); // Generate a unique timestamp
-            const url = `/api/comments?timestamp=${timestamp}`
+        
+            const url = `/api/comments`
       
-            const response = await fetch(url,{cache:'no-store'})
+            const response = await fetch(url,{ next: { revalidate: 0 }})
             const data = await response.json()
             setAllComments(data.comments)
 
 
-            router.push('/admin/dashboard/comments')
+            router.push('/admin/dashboard')
             setIsLoadingUpdate(false)
            }
     

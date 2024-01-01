@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { fetchComments } from '@/utils'
 import moment from 'moment';
 import Loading from '@/app/loading'
+import { useRouter } from 'next/navigation'
 
 interface Comment {
     id: string;
@@ -28,6 +29,7 @@ function AllComments() {
     const [isLoading,setIsLoading] = useState(true)
     const timestamp = Date.now(); // Generate a unique timestamp
 
+    const router = useRouter()
 
     useEffect(() => {
       setIsAdminPage(true)
@@ -51,10 +53,9 @@ function AllComments() {
 
             const response = await fetch(url,{ next: { revalidate: 0 } })
             const data = await response.json()
-
             setAllComments(data.comments)
             setIsLoading(false)
-
+            router.refresh()
         }
         fetchFunction()
     },[]) 
