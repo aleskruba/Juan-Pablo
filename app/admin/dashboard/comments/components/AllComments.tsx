@@ -45,7 +45,6 @@ function AllComments() {
         fetchCurrentUser();
       }, []);
 
-      const url = `/api/comments`
 
       useEffect(() => {
          const fetchFunction = async () => {
@@ -105,7 +104,7 @@ function AllComments() {
 <Link href={`/admin/dashboard/comments/${comment.id}`}   key={index}>
 
 <div  ref={isLastMessage ? lastUserRef : null}
-      className={`  dark:bg-gray-800 mx-2 px-2 pt-6 sm:pt-6 md:pt-2 border border-gray-300 grid  gap-4 relative hover:bg-gray-200 dark:hover:bg-gray-600  rounded-md `}>
+      className={`  dark:bg-gray-800 mx-2 px-2 pt-2 sm:pt-6 md:pt-6 border border-gray-300 grid  gap-4 relative hover:bg-gray-200 dark:hover:bg-gray-600  rounded-md `}>
   {/* First Row */}
       <div className='flex w-full gap-6'>
         <div>
