@@ -21,12 +21,14 @@ const RegisterNewUserForm = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
+      name: '',
       password: '',
       repeatPassword: '',
       admin:false
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('Required'),
+      name: Yup.string().required('Required'),
       password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
        repeatPassword: Yup.string()
         .oneOf([Yup.ref('password'), ''], 'Passwords must match')
@@ -35,10 +37,7 @@ const RegisterNewUserForm = () => {
     onSubmit: async (values, { resetForm }) => {
       setBackendError(null)
       try {
-        // Perform registration logic here using form values
-        console.log('Form values:', values);
-        
-        // Make asynchronous call using fetch with async/await
+
         const response = await fetch('/api/register', {
           method: 'POST',
           headers: {
@@ -104,6 +103,23 @@ const RegisterNewUserForm = () => {
           />
           {formik.touched.email && formik.errors.email && (
             <p className="text-red-500 text-xs mt-1">{formik.errors.email}</p>
+          )}
+            <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+            Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white"
+            placeholder="Enter your name"
+            autoComplete="name"
+          />
+                   {formik.touched.name && formik.errors.name && (
+            <p className="text-red-500 text-xs mt-1">Name is required</p>
           )}
                 </div>
         <div className="mb-4">

@@ -163,10 +163,11 @@ function Messages() {
     {currentUser?.admin ? (
 
     <div className='w-full h-full flex flex-col items-center mt-28'>
-     <div className='mb-4 bg-blue-500 hover:bg-blue-700 text-white text-xl border px-4 py-2  border-emerald-300 rounded-lg'>
+      <div  className='sticky top-12  z-50 mb-4 bg-blue-500 hover:bg-blue-700 text-white text-xl border px-4 py-2  border-emerald-300 rounded-lg'>
           <Link href={'/admin/dashboard/'}
               scroll={false}
-            >
+      
+           >
               Go back to dashboard
             </Link>
         </div>
@@ -187,14 +188,17 @@ function Messages() {
     !message.sender.seenMessageIds.includes(message?.id) ? 'bg-blue-300 dark:bg-green-500 ' : ''
   }`}>
   {/* First Row */}
-  <div className='col-span-1 '>
-    <p className='font-bold'>{moment(message.createdAt).format('DD.MM YYYY HH:mm')}</p>
-  </div>
-  <div className='col-span-1 '>
-    <p>{message.sender.email}</p>
-  </div>
-  <div className='col-span-1 w-10 flex justify-center items-center  '>
-    <img src={message.sender.image} alt={`Profile of ${message.sender.name}`} className='rounded-full w-10 h-10' />
+  <div className='flex gap-6'>
+      <div className=' '>
+        <p className='font-bold'>{moment(message.createdAt).format('DD.MM YYYY HH:mm')}</p>
+      </div>
+      <div className='  '>
+        <img src={message.sender.image ? message.sender.image : '/avatar.png'} alt={`Profile of ${message.sender.name}`} className='rounded-full w-10 h-10' />
+      </div>
+      <div className=' '>
+        <p>{message.sender.email}</p>
+      </div>
+  
   </div>
 {/*   <div className='absolute text-2xl top-2 right-2'>
     <FaRegTrashAlt />

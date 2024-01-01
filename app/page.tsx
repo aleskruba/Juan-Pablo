@@ -9,6 +9,7 @@ import {useScroll,motion, useTransform } from  'framer-motion'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useLanguageContext } from "@/context/language-context"
+import Reviews from '@/components/Comments';
 
 export default  function Home() {
   const session = useSession()
@@ -83,6 +84,10 @@ export default  function Home() {
       
       <div>
        <Contact />
+     </div>
+
+     <div>
+       <Reviews />
      </div>
       
     </main>

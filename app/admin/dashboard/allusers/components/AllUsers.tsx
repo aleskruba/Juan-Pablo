@@ -191,7 +191,7 @@ const Allusers = () => {
 
     {currentUser?.admin ?  (
       <div className='w-full h-full flex flex-col items-center mt-28'>
-     <div className='mb-4 bg-blue-500 hover:bg-blue-700 text-white text-xl border px-4 py-2  border-emerald-300 rounded-lg'>
+     <div className='mb-4 sticky top-12  z-50 bg-blue-500 hover:bg-blue-700 text-white text-xl border px-4 py-2  border-emerald-300 rounded-lg'>
           <Link href={'/admin/dashboard/'}
               scroll={false}
             >
@@ -250,7 +250,7 @@ const Allusers = () => {
           <div
             key={index}
             ref={isLastUser ? lastUserRef : null}
-            className={` p-4 border border-gray-300 rounded grid grid-cols-3 gap-4 ${
+            className={` p-4 border border-gray-300 rounded grid grid-cols-3 gap-4 hover:bg-gray-200 dark:hover:bg-gray-600  ${
               user.activeUser ? 'bg-blue-500 dark:bg-blue-300 dark:text-black' : 'dark:bg-gray-800'
             }`}>
             <div className='col-span-2'>

@@ -30,6 +30,7 @@ model User {
 
   accounts Account[]
   messages Message[]
+  comments Comment[]
 }
 
 model Account {
@@ -60,6 +61,18 @@ model Message {
 
   seenIds String[] @db.ObjectId
   seen User[] @relation("Seen", fields: [seenIds], references: [id])
+
+  senderId String @db.ObjectId
+  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+}
+
+
+
+model Comment {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  body String?
+  image String?
+  createdAt DateTime @default(now())
 
   senderId String @db.ObjectId
   sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)

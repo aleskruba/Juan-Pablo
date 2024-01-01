@@ -7,6 +7,7 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import Link from 'next/link';
 import { Switch } from '@headlessui/react';
 import moment from 'moment';
+import { useLanguageContext } from "@/context/language-context"
 
 interface UserDetailProps {
   id: string;
@@ -23,9 +24,10 @@ interface User {
 const UserDetail: React.FC<UserDetailProps> = ({ id }) => {
   const router = useRouter();
 
+  const {enabled, setEnabled} = useLanguageContext()
+
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [enabled, setEnabled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 

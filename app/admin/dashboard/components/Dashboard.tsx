@@ -53,10 +53,10 @@ function Dashboard() {
         </div>
 
         <div className='mb-4 bg-blue-500 hover:bg-blue-700 text-xl  text-white rounded-md text-center px-2 py-2'>
-          <Link href={'/admin/dashboard/reviews'}
+          <Link href={'/admin/dashboard/comments'}
               scroll={false}
             >
-              All Reviews
+              All Comments
             </Link>
         </div>
 

@@ -18,9 +18,31 @@ return data.messages
 }
 
 
+export async function fetchComments() {
+
+  const response = await fetch(`/api/comments`)
+  const data = await response.json()
+
+return data.comments
+}
+
 export async function fetchMessage(id:string) {
 
   const response = await fetch('/api/messageDetail', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id: id }),
+  });
+  
+
+return response
+}
+
+export async function fetchComment(id:string) {
+
+  const response = await fetch('/api/commentDetail', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

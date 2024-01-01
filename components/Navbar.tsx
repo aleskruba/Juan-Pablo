@@ -33,7 +33,10 @@ const NAV_ITEMS_EN: Array<NavItem> = [
   {
     label: "Contact me",
     page: "../#contact",
-  },
+  }, {
+    label: "Commments",
+    page: "../#comments",
+  }
 ]
 
 const NAV_ITEMS_ES: Array<NavItem> = [
@@ -54,6 +57,10 @@ const NAV_ITEMS_ES: Array<NavItem> = [
     label: "Contáctame",
     page: "../#contact",
   },
+    {
+    label: "Comentarios",
+    page: "../#comments",
+  }
 ]
 
 const NAV_ITEMS_CZ: Array<NavItem> = [
@@ -74,6 +81,10 @@ const NAV_ITEMS_CZ: Array<NavItem> = [
     label: "Kontaktujte mě",
     page: "../#contact",
   },
+    {
+    label: "Hodnocení",
+    page: "../#comments",
+  }
 ]
 export default function Navbar() {
 

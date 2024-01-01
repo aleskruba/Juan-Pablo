@@ -7,6 +7,7 @@ type LanguageContextProviderProps = {
 
 type Language = string;
 type Admin = boolean;
+type ActiveUser = boolean;
 
 type currentUserProps =  {
     id: string;
@@ -19,6 +20,7 @@ type currentUserProps =  {
     createdAt: Date;
     updatedAt: Date;
     seenMessageIds: string[];
+    activeUser:boolean;
   } | null 
 
 type LanguageContext = {
@@ -28,7 +30,8 @@ type LanguageContext = {
     setIsAdminPage: React.Dispatch<React.SetStateAction<Admin>>
     currentUser:currentUserProps
     setCurrentUser: React.Dispatch<React.SetStateAction<currentUserProps>>;
-
+    enabled: boolean
+    setEnabled:React.Dispatch<React.SetStateAction<ActiveUser>>
 };
 
 
@@ -49,7 +52,7 @@ export default function LanguageContextProvider({
 
       const [selected, setSelected] = useState<Language>('');
       const [isAdminPage,setIsAdminPage] = useState<Admin>(false)
-
+      const [enabled, setEnabled] = useState<ActiveUser>(false);
       const [currentUser,setCurrentUser] = useState<currentUserProps>(null)
 
     useEffect(() => {
@@ -77,7 +80,15 @@ export default function LanguageContextProvider({
   }, []);
  */
     return (
-        <LanguageContext.Provider value={{ selected, setSelected ,isAdminPage,setIsAdminPage,currentUser,setCurrentUser}}>
+        <LanguageContext.Provider value={{ selected, 
+                                           setSelected ,
+                                           isAdminPage,
+                                           setIsAdminPage,
+                                           currentUser,
+                                           setCurrentUser,
+                                           enabled, 
+                                           setEnabled}
+                                           }>
            {selected.length ? children : null}
         </LanguageContext.Provider>
     );
