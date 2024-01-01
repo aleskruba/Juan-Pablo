@@ -23,7 +23,8 @@ interface User {
 
 const Comments = () => {
   const session = useSession()
-  const {selected,currentUser,allComments, setAllComments} = useLanguageContext()
+  const {selected,currentUser} = useLanguageContext()
+  const [allComments, setAllComments] = useState<User[]>([]);
 
 
 

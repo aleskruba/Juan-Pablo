@@ -1,8 +1,7 @@
 import { fetchComments } from '@/utils'
 import React, { useEffect, useState,useRef}  from 'react'
 import moment from 'moment';
-import { useRouter } from 'next/navigation'
-import { useLanguageContext } from "@/context/language-context"
+
 interface User {
     id: string;
     body: string;
@@ -18,14 +17,9 @@ interface User {
     allComments: User[];
   }
 
-const CommentsArray: React.FC<CommentsArrayProps> = ({allComments}) => {
+const CommentsArray: React.FC<CommentsArrayProps> = ({ allComments }) => {
 
-  
 
-    const router = useRouter()
-    router.refresh()
-
-  //  const {setAllComments} = useLanguageContext()
     const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
     const lastUserRef = useRef<HTMLDivElement | null>(null);
 
@@ -51,7 +45,7 @@ const CommentsArray: React.FC<CommentsArrayProps> = ({allComments}) => {
 
   return (
     <div>
-        {allComments.slice(0, displayCount).map((comment)=>(
+        {sortedComments.slice(0, displayCount).map((comment)=>(
 
         <div key={comment.id} className='flex pt-2 border-t border-solid border-gray-400'>
            <div className='flex flex-col gap 2 w-[150px] pl-6'>
@@ -65,7 +59,7 @@ const CommentsArray: React.FC<CommentsArrayProps> = ({allComments}) => {
             <div className='font-bold'>
                 {comment?.sender.name?.split(' ')[0]}
             </div>
-            <div className='italic text-xs '>
+            <div className='italic '>
             {moment(comment?.createdAt).format('DD.MM YYYY HH:mm')}
             </div>
 
