@@ -66,6 +66,32 @@ interface Comment {
       const handleSubmit = async (values: { updatedComment: string } , { resetForm }: FormikHelpers<{ updatedComment: string }>) => {
     
         try {
+          setIsLoadingUpdate(true)
+         const response = await fetch('/api/comment', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ values, id:comment?.id }), // Sending the message in the request body
+        });
+    
+        const data = await response.json();
+  
+        if (data.message === 'success'){
+          toast.success('Comment updated successfully')
+          setIsLoadingUpdate(false)
+         }
+  
+        else {toast.error('Comment has not been updated successfully')}
+        
+        return data; 
+     
+      } catch (error) {
+        console.error('Error sending message:', error);
+        return { success: false, message: 'Failed to send the message' };
+      }
+
+/*         try {
             await sendComment(values.updatedComment)   
              const response = await fetch(`/api/comments`,{cache:'no-store'})
             const data = await response.json()
@@ -76,7 +102,7 @@ interface Comment {
 
         } catch (error) {
           console.error('Error handling form submission:', error);
-        }
+        } */
         };
     
   return (

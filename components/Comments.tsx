@@ -133,7 +133,7 @@ const Comments = () => {
                   {selected  === 'Es' && 'Sólo los usuarios activos pueden dar comentarios'}
                   {selected  === 'Cz' && 'Pouze aktivní uživatelé mohou psát komentáře'} 
             </div>
-        <CommentsArray />
+        <CommentsArray allComments={allComments} />
     </section>
   )
 }

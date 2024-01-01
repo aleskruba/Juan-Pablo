@@ -18,26 +18,17 @@ interface User {
     allComments: User[];
   }
 
-const CommentsArray: React.FC<CommentsArrayProps> = () => {
+const CommentsArray: React.FC<CommentsArrayProps> = ({allComments}) => {
 
   
 
     const router = useRouter()
     router.refresh()
 
-    const {allComments, setAllComments} = useLanguageContext()
-  const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
+  //  const {setAllComments} = useLanguageContext()
+    const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
     const lastUserRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-
-      const fetchFunction = async () => {
-          const response = await fetchComments()
-          setAllComments(response)
-           }
-      fetchFunction()
-  
-  },[])  
 
     const loadMoreUsers = () => {
         setDisplayCount(displayCount + 4); // Increase the displayed count by 5
