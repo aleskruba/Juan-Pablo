@@ -2,6 +2,8 @@
 const nextConfig = {
 
  images: {
+  disableManifest: true,
+  cacheBust: true,
    domains: [
          'lh3.googleusercontent.com'
    ]
