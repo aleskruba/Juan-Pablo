@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/app/libs/prismadb';
 
+export const revalidate = true
+
 export async function GET(req: NextRequest) {
 
     try {  

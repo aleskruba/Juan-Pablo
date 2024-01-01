@@ -85,7 +85,8 @@ export async function PUT(req: NextRequest) {
                   },
                 });
           
-       
+                const path = req.nextUrl.pathname
+                revalidatePath(path)
               
              return NextResponse.json({ message: 'success' }, { status: 200 })
 
