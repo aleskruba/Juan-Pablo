@@ -1,4 +1,3 @@
-import { fetchComments } from '@/utils'
 import React, { useEffect, useState,useRef}  from 'react'
 import moment from 'moment';
 

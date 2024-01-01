@@ -27,7 +27,6 @@ function AllComments() {
     const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
     const lastUserRef = useRef<HTMLDivElement | null>(null);
     const [isLoading,setIsLoading] = useState(true)
-    const timestamp = Date.now(); // Generate a unique timestamp
 
     const router = useRouter()
 
@@ -50,23 +49,12 @@ function AllComments() {
       }, []);
 
 
-/*       useEffect(() => {
-         const fetchFunction = async () => {
-    
-            const response =   await fetchComments()
-            setAllComments(response)
-            setIsLoading(false)
-            router.refresh()
-        }
-        fetchFunction()
-    },[])  */
-
     const loadMoreMessages = () => {
-        setDisplayCount(displayCount + 4); // Increase the displayed count by 5
+        setDisplayCount(displayCount + 4); 
       };
   
       const scrollToTop = () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         };
   
       useEffect(() => {

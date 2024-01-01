@@ -53,9 +53,8 @@ interface Comment {
             const response =   await fetchComments()
             setAllComments(response)
             router.refresh()
-
             
-            router.push('/admin/dashboard/comments')
+            router.push('/admin/dashboard')
             setIsLoadingUpdate(false)
            }
     
