@@ -20,7 +20,7 @@ return data.messages
 
 export async function fetchComments() {
 
-  const response = await fetch(`/api/comments`)
+  const response = await fetch(`/api/comments`,{cache:'no-store'})
   const data = await response.json()
 
 return data.comments

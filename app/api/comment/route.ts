@@ -57,7 +57,7 @@ export async function PUT(req: NextRequest) {
       
       try {   const data = await req.json();
 
-        console.log(data)
+
                const commentID = data.id
                const updatedComment = data.updatedComment
                 
