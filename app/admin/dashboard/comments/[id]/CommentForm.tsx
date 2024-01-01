@@ -50,7 +50,6 @@ interface Comment {
     
           if (data.message === 'success'){
             toast.success('Comment updated successfully')
-            router.push('/admin/dashboard/comments')
             setIsLoadingUpdate(false)
            }
     
@@ -68,10 +67,7 @@ interface Comment {
     
         try {
             await sendComment(values.updatedComment)   
-       
-            resetForm();
-        
-            const response = await fetch(`/api/comments`,{cache:'no-store'})
+             const response = await fetch(`/api/comments`,{cache:'no-store'})
             const data = await response.json()
             setAllComments(data.comments)
             router.refresh()
