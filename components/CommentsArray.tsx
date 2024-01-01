@@ -1,7 +1,7 @@
 import { fetchComments } from '@/utils'
 import React, { useEffect, useState,useRef}  from 'react'
 import moment from 'moment';
-import { useRouter } from 'next/navigation'
+
 import { useLanguageContext } from "@/context/language-context"
 
 interface User {
@@ -23,18 +23,18 @@ const CommentsArray = () => {
 
   
 
-    const router = useRouter()
-    router.refresh()
+
 
     const {allComments, setAllComments} = useLanguageContext()
-  const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
+    const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
     const lastUserRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
 
       const fetchFunction = async () => {
-          const response = await fetchComments()
-          setAllComments(response)
+          const response = await fetch(`/api/comments`,{cache:'no-store'})
+          const data = await response.json()
+          setAllComments(data.comments)
            }
       fetchFunction()
   
@@ -61,7 +61,7 @@ const CommentsArray = () => {
 
   return (
     <div>
-        {sortedComments.slice(0, displayCount).map((comment)=>(
+        {allComments.slice(0, displayCount).map((comment)=>(
 
         <div key={comment.id} className='flex pt-2 border-t border-solid border-gray-400'>
            <div className='flex flex-col gap 2 w-[150px] pl-6'>
