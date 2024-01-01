@@ -28,6 +28,7 @@ interface Comment {
 
     const router = useRouter()
 
+
     const {setAllComments} = useLanguageContext()
 
     const validationSchema = Yup.object().shape({
@@ -67,11 +68,15 @@ interface Comment {
     
         try {
             await sendComment(values.updatedComment)   
-            
+       
             resetForm();
         
-            const updatedComments = await fetchComments();
-            setAllComments(updatedComments)
+            const response = await fetch(`/api/comments`,{cache:'no-store'})
+            const data = await response.json()
+            setAllComments(data.comments)
+            router.refresh()
+            // const updatedComments = await fetchComments();
+           // setAllComments(updatedComments)
 
         } catch (error) {
           console.error('Error handling form submission:', error);
