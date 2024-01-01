@@ -28,7 +28,7 @@ const Comments = () => {
 
 
 
-  useEffect(() => {
+/*   useEffect(() => {
 
     const fetchFunction = async () => {
         const response = await fetchComments()
@@ -36,7 +36,25 @@ const Comments = () => {
          }
     fetchFunction()
 
-},[])  
+},[])   */
+
+
+const timestamp = Date.now(); // Generate a unique timestamp
+const url = `/api/comments?timestamp=${timestamp}`
+
+useEffect(() => {
+   const fetchFunction = async () => {
+     // const response = await fetchComments()
+
+      const response = await fetch(url,{cache:'no-store'})
+      const data = await response.json()
+
+      setAllComments(data.comments)
+
+
+  }
+  fetchFunction()
+},[]) 
 
   const validationSchema = Yup.object().shape({
     message: Yup.string().required('Message is required'),

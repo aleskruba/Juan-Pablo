@@ -26,7 +26,7 @@ function AllComments() {
     const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
     const lastUserRef = useRef<HTMLDivElement | null>(null);
     const [isLoading,setIsLoading] = useState(true)
-    const timestamp = Date.now(); // Generate a unique timestamp
+    
 
 
     useEffect(() => {
@@ -43,6 +43,7 @@ function AllComments() {
         fetchCurrentUser();
       }, []);
 
+      const timestamp = Date.now(); // Generate a unique timestamp
       const url = `/api/comments?timestamp=${timestamp}`
 
       useEffect(() => {
@@ -106,7 +107,7 @@ function AllComments() {
 <Link href={`/admin/dashboard/comments/${comment.id}`}   key={index}>
 
 <div  ref={isLastMessage ? lastUserRef : null}
-      className={`  dark:bg-gray-800 mx-2 px-2 pt-6 md:pt-2 border border-gray-300 grid  gap-4 relative hover:bg-gray-200 dark:hover:bg-gray-600  rounded-md `}>
+      className={`  dark:bg-gray-800 mx-2 px-2 pt-6 lg:pt-6 md:pt-2 border border-gray-300 grid  gap-4 relative hover:bg-gray-200 dark:hover:bg-gray-600  rounded-md `}>
   {/* First Row */}
       <div className='flex w-full gap-6'>
         <div>

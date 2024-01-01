@@ -51,6 +51,15 @@ interface Comment {
           if (data.message === 'success'){
             toast.success('Comment updated successfully')
             router.refresh()
+
+            const timestamp = Date.now(); // Generate a unique timestamp
+            const url = `/api/comments?timestamp=${timestamp}`
+      
+            const response = await fetch(url,{cache:'no-store'})
+            const data = await response.json()
+            setAllComments(data.comments)
+
+
             router.push('/admin/dashboard/comments')
             setIsLoadingUpdate(false)
            }
@@ -69,14 +78,8 @@ interface Comment {
     
         try {
             await sendComment(values.updatedComment)   
-            router.refresh()
-            resetForm();
-        
-            const response = await fetch(`/api/comments`,{cache:'no-store'})
-            const data = await response.json()
-            setAllComments(data.comments)
-            const updatedComments = await fetchComments();
-            setAllComments(updatedComments)
+     
+       
 
         } catch (error) {
           console.error('Error handling form submission:', error);
