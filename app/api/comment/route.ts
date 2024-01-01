@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/app/libs/prismadb';
+import { revalidatePath } from 'next/cache';
+
+export const revalidate = true
 
 
 export async function POST(req: NextRequest) {
