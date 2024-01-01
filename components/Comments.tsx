@@ -27,31 +27,10 @@ const Comments = () => {
   const [allComments, setAllComments] = useState<User[]>([]);
 
 
-
-/*   useEffect(() => {
-
-    const fetchFunction = async () => {
-        const response = await fetchComments()
-        setAllComments(response)
-         }
-    fetchFunction()
-
-},[])   */
-
-
-const timestamp = Date.now(); // Generate a unique timestamp
-const url = `/api/comments?timestamp=${timestamp}`
-
 useEffect(() => {
    const fetchFunction = async () => {
-     // const response = await fetchComments()
-
-      const response = await fetch(url,{cache:'no-store'})
-      const data = await response.json()
-
-      setAllComments(data.comments)
-
-
+     const response =   await fetchComments()
+     setAllComments(response)
   }
   fetchFunction()
 },[]) 

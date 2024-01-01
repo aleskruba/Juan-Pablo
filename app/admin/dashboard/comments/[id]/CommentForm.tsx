@@ -52,15 +52,11 @@ interface Comment {
             toast.success('Comment updated successfully')
             router.refresh()
 
-        
-            const url = `/api/comments`
-      
-            const response = await fetch(url,{ next: { revalidate: 0 }})
-            const data = await response.json()
-            setAllComments(data.comments)
+            const response =   await fetchComments()
+            setAllComments(response)
 
 
-            router.push('/admin/dashboard')
+            router.push('/admin/dashboard/comments')
             setIsLoadingUpdate(false)
            }
     

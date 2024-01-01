@@ -49,11 +49,9 @@ function AllComments() {
 
       useEffect(() => {
          const fetchFunction = async () => {
-           // const response = await fetchComments()
-
-            const response = await fetch(url,{ next: { revalidate: 0 } })
-            const data = await response.json()
-            setAllComments(data.comments)
+    
+            const response =   await fetchComments()
+            setAllComments(response)
             setIsLoading(false)
             router.refresh()
         }

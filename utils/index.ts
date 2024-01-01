@@ -20,10 +20,11 @@ return data.messages
 
 export async function fetchComments() {
 
-  const response = await fetch(`/api/comments`,{cache:'no-store'})
+  const url = `/api/comments`
+  const response = await fetch(url,{ next: { revalidate: 0 } })
   const data = await response.json()
 
-return data.comments
+  return data.comments
 }
 
 export async function fetchMessage(id:string) {
