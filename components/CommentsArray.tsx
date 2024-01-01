@@ -1,9 +1,8 @@
 import { fetchComments } from '@/utils'
 import React, { useEffect, useState,useRef}  from 'react'
 import moment from 'moment';
-
+import { useRouter } from 'next/navigation'
 import { useLanguageContext } from "@/context/language-context"
-
 interface User {
     id: string;
     body: string;
@@ -19,22 +18,22 @@ interface User {
     allComments: User[];
   }
 
-const CommentsArray = () => {
+const CommentsArray: React.FC<CommentsArrayProps> = () => {
 
   
 
-
+    const router = useRouter()
+    router.refresh()
 
     const {allComments, setAllComments} = useLanguageContext()
-    const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
+  const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
     const lastUserRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
 
       const fetchFunction = async () => {
-          const response = await fetch(`/api/comments`,{cache:'no-store'})
-          const data = await response.json()
-          setAllComments(data.comments)
+          const response = await fetchComments()
+          setAllComments(response)
            }
       fetchFunction()
   
