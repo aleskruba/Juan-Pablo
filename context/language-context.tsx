@@ -23,6 +23,17 @@ type currentUserProps =  {
     activeUser:boolean;
   } | null 
 
+  interface User {
+    id: string;
+    body: string;
+    createdAt: string; 
+    sender: {
+      email: string;
+      image: string;
+      name?: string; 
+    };
+  }
+
 type LanguageContext = {
     selected: Language;
     setSelected: React.Dispatch<React.SetStateAction<Language>>;
@@ -32,6 +43,8 @@ type LanguageContext = {
     setCurrentUser: React.Dispatch<React.SetStateAction<currentUserProps>>;
     enabled: boolean
     setEnabled:React.Dispatch<React.SetStateAction<ActiveUser>>
+    allComments: User[];
+    setAllComments:React.Dispatch<React.SetStateAction<User[]>>
 };
 
 
@@ -54,6 +67,7 @@ export default function LanguageContextProvider({
       const [isAdminPage,setIsAdminPage] = useState<Admin>(false)
       const [enabled, setEnabled] = useState<ActiveUser>(false);
       const [currentUser,setCurrentUser] = useState<currentUserProps>(null)
+      const [allComments, setAllComments] = useState<User[]>([]);
 
     useEffect(() => {
 
@@ -87,7 +101,9 @@ export default function LanguageContextProvider({
                                            currentUser,
                                            setCurrentUser,
                                            enabled, 
-                                           setEnabled}
+                                           setEnabled,
+                                           allComments, 
+                                           setAllComments}
                                            }>
            {selected.length ? children : null}
         </LanguageContext.Provider>

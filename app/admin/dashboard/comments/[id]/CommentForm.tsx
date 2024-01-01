@@ -3,6 +3,8 @@ import { useRouter } from 'next/navigation'
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast'
+import { fetchComments } from '@/utils';
+import { useLanguageContext } from "@/context/language-context"
 
 interface Comment {
     id: string;
@@ -26,11 +28,13 @@ interface Comment {
 
     const router = useRouter()
 
+    const {setAllComments} = useLanguageContext()
+
     const validationSchema = Yup.object().shape({
         updatedComment: Yup.string().required('Message is required'),
       });
     
-      async function sendMessage(updatedComment: string) {
+      async function sendComment(updatedComment: string) {
         try {
             setIsLoadingUpdate(true)
            const response = await fetch('/api/comment', {
@@ -62,10 +66,13 @@ interface Comment {
       const handleSubmit = async (values: { updatedComment: string } , { resetForm }: FormikHelpers<{ updatedComment: string }>) => {
     
         try {
-           
+            await sendComment(values.updatedComment)   
+            
+            resetForm();
+        
+            const updatedComments = await fetchComments();
+            setAllComments(updatedComments)
 
-            sendMessage(values.updatedComment)
-     
         } catch (error) {
           console.error('Error handling form submission:', error);
         }
