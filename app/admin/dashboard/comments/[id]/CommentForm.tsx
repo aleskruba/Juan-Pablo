@@ -48,6 +48,7 @@ interface Comment {
           const data = await response.json();
     
           if (data.message === 'success'){
+            await fetchComments()
             toast.success('Comment updated successfully')
             router.push('/admin/dashboard/comments')
             setIsLoadingUpdate(false)
