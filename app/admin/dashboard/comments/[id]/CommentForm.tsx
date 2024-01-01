@@ -50,6 +50,7 @@ interface Comment {
     
           if (data.message === 'success'){
             toast.success('Comment updated successfully')
+            router.refresh()
             router.push('/admin/dashboard/comments')
             setIsLoadingUpdate(false)
            }

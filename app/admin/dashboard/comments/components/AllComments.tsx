@@ -26,6 +26,8 @@ function AllComments() {
     const [displayCount, setDisplayCount] = useState(4); // Initially display 5 users
     const lastUserRef = useRef<HTMLDivElement | null>(null);
     const [isLoading,setIsLoading] = useState(true)
+    const timestamp = Date.now(); // Generate a unique timestamp
+
 
     useEffect(() => {
       setIsAdminPage(true)
@@ -41,12 +43,16 @@ function AllComments() {
         fetchCurrentUser();
       }, []);
 
-
+      const url = `/api/comments?timestamp=${timestamp}`
 
       useEffect(() => {
          const fetchFunction = async () => {
-            const response = await fetchComments()
-            setAllComments(response)
+           // const response = await fetchComments()
+
+            const response = await fetch(url,{cache:'no-store'})
+            const data = await response.json()
+
+            setAllComments(data.comments)
             setIsLoading(false)
 
         }
