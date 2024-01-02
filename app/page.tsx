@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useLanguageContext } from "@/context/language-context"
 import Reviews from '@/components/Comments';
+import Link from 'next/link';
 
 export default  function Home() {
   const session = useSession()
@@ -75,8 +76,14 @@ export default  function Home() {
               </div> 
             <div className={`flex flex-col px-4 pt-2 ${openBar ? '' : 'hidden'}`}>
             <div>ADMIN</div>
-            <div><a href="https://juan-pablo.vercel.app/admin" target="_blank" className='hover:text-gray-500'>  https://juan-pablo.vercel.app/admin </a> </div>
-            <div> email: reactbrno@centrum.cz</div>
+            <div>
+            <Link href="https://juan-pablo.vercel.app/admin">
+              <a target="_blank" rel="noopener noreferrer" className='hover:text-gray-500'>
+                https://juan-pablo.vercel.app/admin
+              </a>
+            </Link>
+          </div>   
+             <div> email: reactbrno@centrum.cz</div>
             <div> password: 123456 </div>
             <div className='w-full border border-solid border-1px mt-2' />  
             <div>USER</div>
