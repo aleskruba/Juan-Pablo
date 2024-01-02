@@ -8,6 +8,7 @@ import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import CommentsArray from './CommentsArray';
 import { fetchComments } from '@/utils';
+import { useRouter } from 'next/navigation';
 
 interface User {
   id: string;
@@ -25,7 +26,7 @@ const Comments = () => {
   const session = useSession()
   const {selected,currentUser} = useLanguageContext()
   const [allComments, setAllComments] = useState<User[]>([]);
-
+  const router = useRouter()
 
 useEffect(() => {
    const fetchFunction = async () => {
@@ -53,6 +54,8 @@ useEffect(() => {
 
       if (data.message === 'success'){
         toast.success('Message sent successfully')
+        router.refresh()
+        
        }
 
       else {toast.error('Message was has not been sent successfully')}
@@ -111,7 +114,7 @@ useEffect(() => {
               >
                 {({ handleSubmit }) => (
                   <Form onSubmit={handleSubmit} className=" ">
-                    <div className={session.data?.user?.name ?'' :'opacity-50 pointer-events-none '}>
+                    <div className={session.data?.user?.email ?'' :'opacity-50 pointer-events-none '}>
                       <div className="mb-4 flex justify-center">
                         <Field
                           as="textarea"
