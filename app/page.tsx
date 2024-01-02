@@ -79,7 +79,7 @@ export default  function Home() {
             <div>
           <Link
                 href="https://juan-pablo.vercel.app/admin" 
-                className="className='hover:text-gray-500'"
+                className="hover:text-gray-500"
                 target="_blank"
                 rel="noopener noreferrer" // Add rel attribute here
               >https://juan-pablo.vercel.app/admin
