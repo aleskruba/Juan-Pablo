@@ -87,7 +87,7 @@ export default  function Home() {
             <div> password: 123456 </div>
             <div className='w-full border border-solid border-1px mt-2' />  
             <div>USER</div>
-            <div> in <strong>"Contact me"</strong> section you can register or log in </div>
+            <div> in <strong>&ldquoContact me&ldquo</strong> section you can register or log in </div>
             <div> or use this user  </div>
             <div> email: pepa@seznam.cz </div>
             <div> password: 123456 </div>
