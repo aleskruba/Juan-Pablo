@@ -77,17 +77,19 @@ export default  function Home() {
             <div className={`flex flex-col px-4 pt-2 ${openBar ? '' : 'hidden'}`}>
             <div>ADMIN</div>
             <div>
-            <Link href="https://juan-pablo.vercel.app/admin">
-              <a target="_blank" rel="noopener noreferrer" className='hover:text-gray-500'>
-                https://juan-pablo.vercel.app/admin
-              </a>
-            </Link>
+          <Link
+                href="https://juan-pablo.vercel.app/admin" 
+                className="className='hover:text-gray-500'"
+                target="_blank"
+                rel="noopener noreferrer" // Add rel attribute here
+              >https://juan-pablo.vercel.app/admin
+          </Link>
           </div>   
              <div> email: reactbrno@centrum.cz</div>
             <div> password: 123456 </div>
             <div className='w-full border border-solid border-1px mt-2' />  
             <div>USER</div>
-            <div> in <strong>&ldquoContact me&ldquo</strong> section you can register or log in </div>
+            <div> in <strong> Contact me</strong> section you can register or log in </div>
             <div> or use this user  </div>
             <div> email: pepa@seznam.cz </div>
             <div> password: 123456 </div>
