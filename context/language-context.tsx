@@ -51,7 +51,15 @@ type LanguageContext = {
 
 
 export const LanguageContext = createContext<LanguageContext | null>(null);
+if (typeof window !== "undefined") {
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
 
+      if (key === "theme") {
+        localStorage.removeItem(key);
+      }
+}
+}
 export default function LanguageContextProvider({
     children,
 }: LanguageContextProviderProps) {
