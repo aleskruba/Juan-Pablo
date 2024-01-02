@@ -67,9 +67,23 @@ useEffect(() => {
 
   const handleSubmit = async (values: { message: string }, { resetForm }: FormikHelpers<{ message: string }>) => {
 
+    const newComment: User = {
+      id: 'unique_id', // Provide a unique ID for the new comment
+      body: values.message,
+      createdAt: new Date().toString(), // Convert date to string
+      sender: {
+        email: 'example@example.com', // Replace with the actual email
+        image: session.data?.user?.image || '', // Use the image if available
+        name: session.data?.user?.name || '', // Use the name if available
+      },
+    };
     try {
+
+
+      setAllComments([...allComments, newComment]);
+      
+
       await sendMessage(values.message);
-    
       resetForm(); // Reset the form after submission
       const updatedComments = await fetchComments();
       setAllComments(updatedComments);
