@@ -14,7 +14,7 @@ const RegisterNewUserForm = () => {
   const router = useRouter()
 
   const [backendError,setBackendError] = useState<backendError>(null)
-
+  const [isLoading,setIsLoading] = useState(false)
 
 
   // Set up Formik for form handling and validation
@@ -35,6 +35,7 @@ const RegisterNewUserForm = () => {
         .required('Required'), 
     }),
     onSubmit: async (values, { resetForm }) => {
+      setIsLoading(true)
       setBackendError(null)
       try {
         // Perform registration logic here using form values
@@ -85,8 +86,8 @@ const RegisterNewUserForm = () => {
   });
 
   return (
-    <div className="w-full h-full mt-28 mb-16 flex items-center justify-center">
-      
+    <div className="w-full h-screen mt-18 mb-16 flex items-center justify-center">
+           { !isLoading ? <>
       <form className="w-full max-w-md px-10" onSubmit={formik.handleSubmit}>
       <div className='text-center mb-10 text-teal-400 font-thin text-2xl'>Register a new user</div>
         <div className="mb-4">
@@ -173,6 +174,7 @@ const RegisterNewUserForm = () => {
           </button>
         </div>
       </form>
+      </> : 'wait please ....'}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client"
 import getCurrentUser from '@/app/actions/getCurrentUser';
-import { useRef,useEffect } from "react"
+import { useRef,useEffect, useState } from "react"
 import AboutSection from "@/components/AboutSection"
 import HeroSection from "@/components/HeroSection"
 import GuideSection from "@/components/GuideSection"
@@ -60,8 +60,35 @@ export default  function Home() {
     fetchCurrentUser();
   }, []);
 
+  const [openBar,setOpenBar] = useState(true)
+
   return (
     <main className="mx-auto max-w-3xl px-4 sm:px-6 md:max-w-5xl ">
+
+  <div className={`absolute ${openBar ? 'w-[380px]' : 'w-[40px]'} h-[270px] bg-blue-300 left-0 top-32 dark:bg-blue-700`}>
+        <div className=''>
+          <div className='w-full h-full relative'>
+              <div className='absolute  flex justify-center items-center right-2 top-2 w-8 h-8 bg-gray-400 text-2xl cursor-pointer hover:bg-gray-200'
+                  onClick={()=>setOpenBar(!openBar)}
+              >
+                X
+              </div> 
+            <div className={`flex flex-col px-4 pt-2 ${openBar ? '' : 'hidden'}`}>
+            <div>ADMIN</div>
+            <div><a href="https://juan-pablo.vercel.app/admin" target="_blank" className='hover:text-gray-500'>  https://juan-pablo.vercel.app/admin </a> </div>
+            <div> email: reactbrno@centrum.cz</div>
+            <div> password: 123456 </div>
+            <div className='w-full border border-solid border-1px mt-2' />  
+            <div>USER</div>
+            <div> in <strong>"Contact me"</strong> section you can register or log in </div>
+            <div> or use this user  </div>
+            <div> email: pepa@seznam.cz </div>
+            <div> password: 123456 </div>
+            </div>
+          </div>
+       </div>
+      </div>
+
          <HeroSection />
       
    <motion.div 

@@ -1,5 +1,5 @@
 "use client"
-import React,{useEffect} from 'react';
+import React,{useEffect, useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLanguageContext } from '@/context/language-context';
@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 
 const AdminForm = () => {
   const { setIsAdminPage } = useLanguageContext();
-
+  const [isLoading,setIsLoading] = useState(false)
   const router = useRouter()
 
   useEffect(()=>{
@@ -30,6 +30,7 @@ const AdminForm = () => {
       password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
     }),
     onSubmit: (values, { resetForm }) => {
+      setIsLoading(true)
     resetForm();
 
 
@@ -57,7 +58,7 @@ const AdminForm = () => {
 
   return (
     <div className="w-screen h-screen  flex flex-col items-center justify-center">
-      
+      { !isLoading ? <>
       <form className="w-full max-w-md px-10" onSubmit={formik.handleSubmit}>
       <div className='text-center mb-10 text-teal-400 font-thin text-2xl'>Login</div>
         <div className="mb-4">
@@ -113,6 +114,8 @@ const AdminForm = () => {
             className='block text-center text-blue-500 hover:underline mt-2'>
         forgot your password? 
       </Link>
+
+</> : 'wait please ....'}
     </div>
   );
 };

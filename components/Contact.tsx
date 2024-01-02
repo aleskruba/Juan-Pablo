@@ -183,7 +183,7 @@ const Contact = () => {
       >
         {({ handleSubmit }) => (
           <Form onSubmit={handleSubmit} className=" bg-gray-200 min-w-full shadow-md rounded px-2 pt-6 pb-8 mb-4">
-            <div className={session.data?.user?.email ?'' :'opacity-50 pointer-events-none'}>
+            <div className={session.data?.user?.email && !currentUser?.admin ?'' :'opacity-50 pointer-events-none'}>
               <div className="mb-4">
                 <Field
                   as="textarea"
