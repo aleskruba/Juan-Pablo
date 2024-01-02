@@ -184,25 +184,22 @@ function Messages() {
 <div
 
   ref={isLastMessage ? lastUserRef : null}
-  className={`dark:bg-gray-800 mx-2 px-2 pt-2 border border-gray-300 grid gap-4 relative hover:bg-gray-200 dark:hover:bg-gray-600 p-4 rounded-md ${
+  className={`dark:bg-gray-800 mx-2 px-2 pt-2 border border-gray-300 grid grid-cols-2 gap-2 relative hover:bg-gray-200 dark:hover:bg-gray-600 p-4 rounded-md ${
     !message.sender.seenMessageIds.includes(message?.id) ? 'bg-blue-300 dark:bg-green-500 ' : ''
   }`}>
   {/* First Row */}
-  <div className='flex gap-6'>
-      <div className=' '>
+
+      <div className='col-span-1 '>
         <p className='font-bold'>{moment(message.createdAt).format('DD.MM YYYY HH:mm')}</p>
-      </div>
-      <div className='  '>
-        <img src={message.sender.image ? message.sender.image : '/avatar.png'} alt={`Profile of ${message.sender.name}`} className='rounded-full w-10 h-10' />
-      </div>
-      <div className=' '>
         <p>{message.sender.email}</p>
       </div>
-  
-  </div>
-{/*   <div className='absolute text-2xl top-2 right-2'>
-    <FaRegTrashAlt />
-  </div> */}
+      <div className=' w-22 h-20 col-span-2 flex justify-end  pr-6 w-full '>
+        <img src={message.sender.image ? message.sender.image : '/avatar.png'} alt={`Profile of ${message.sender.name}`} className='rounded-full w-20 h-20' />
+      </div>
+
+  <div className='bg-gray-200'>
+   
+      </div>
   {!message.sender.seenMessageIds.includes(message?.id) && (
   <div className='absolute bottom-2 right-2'>
     <h1 className='text-red-600 dark:text-red-500 font-bold'>New </h1>
@@ -211,7 +208,8 @@ function Messages() {
 
   {/* Second Row */}
   <div className='col-span-3'>
-    <p className='font-bold'>{message.body}</p>
+    <p className='font-bold'>    {message.body.length > 150 ? `${message.body.substring(0, 150)}...` : message.body} </p>
+
   </div>
 </div>
 </Link>

@@ -96,26 +96,24 @@ function AllComments() {
 <Link href={`/admin/dashboard/comments/${comment.id}`}   key={index}>
 
 <div  ref={isLastMessage ? lastUserRef : null}
-      className={`  dark:bg-gray-800 mx-2 px-2 pt-2 sm:pt-6 md:pt-6 border border-gray-300 grid  gap-4 relative hover:bg-gray-200 dark:hover:bg-gray-600  rounded-md `}>
+      className={`  dark:bg-gray-800 mx-2 px-2    border border-gray-300 grid grid-cols-2 gap-2 relative hover:bg-gray-200 dark:hover:bg-gray-600  rounded-md `}>
   {/* First Row */}
-      <div className='flex w-full gap-6'>
-        <div>
+      
+        <div className='pt-6 md:pt-2'>
            <p className='font-bold '>{moment(comment.createdAt).format('DD.MM YYYY HH:mm')}</p>
+           <p className=''>{comment.sender.email}</p>
         </div>
-        <div>
-           <img src={comment.sender.image ? comment.sender.image : '/avatar.png'} alt={`Profile of ${comment.sender.name}`} className='rounded-full w-10 h-10' />
+        <div className='w-18 h-18 col-span-2 flex justify-end  pr-6 w-full  pt-6'>
+           <img src={comment.sender.image ? comment.sender.image : '/avatar.png'} alt={`Profile of ${comment.sender.name}`} className='rounded-full w-16 h-16' />
         </div>
-       <div> 
-        <p className=''>{comment.sender.email}</p>
-        </div>
-      </div>
 
-      <div className='col-span-2'>
-        <p className='font-bold'>{comment.body}</p>
+
+      <div className='col-span-3'>
+        <p className='font-bold '> {comment.body.length > 150 ? `${comment.body.substring(0, 150)}...` : comment.body} </p>
       </div>
       <div className='absolute top-0 right-2'>
-    <h1 className='text-red-600 dark:text-red-500  font-thin'>you can upadate or delete this message </h1>
-  </div>
+         <h1 className='text-red-600 dark:text-red-500  font-thin'>you can upadate or delete this message </h1>
+      </div>
     </div>
 </Link>
   
