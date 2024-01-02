@@ -94,7 +94,7 @@ const deleteMessageFunction = async (id: string)  => {
           </div> */}
           </div>
         {!isloading ? <> 
-          <div className='grid grid-cols-2 md:grid-cols-4 gap-4 dark:bg-gray-800 bg-gray-200 p-4 rounded-md'>
+          <div className='grid grid-cols-2 md:grid-cols-4 mx-6 gap-4 dark:bg-gray-800 bg-gray-200 p-4 rounded-md'>
 
 
       <div className=''>
@@ -122,7 +122,7 @@ const deleteMessageFunction = async (id: string)  => {
         {message?.body}
     </div>
   </div>
-  <div className='text-red-800 dark:text-red-300  dark:hover:text-red-500 hover:text-red-500 text-3xl mt-10 flex justify-end cursor-pointer'>
+  <div className='text-red-800 dark:text-red-300  dark:hover:text-red-500 hover:text-red-500 text-3xl mt-10 flex justify-end mr-8 cursor-pointer'>
   {!isLoadingDelete ? 
     <FaRegTrashAlt onClick={() =>openDeleteConfirmation()}/> : 'wait please ....'
         }
