@@ -85,8 +85,8 @@ useEffect(() => {
 
       await sendMessage(values.message);
       resetForm(); // Reset the form after submission
-      const updatedComments = await fetchComments();
-      setAllComments(updatedComments);
+     // const updatedComments = await fetchComments();
+      //setAllComments(updatedComments);
     } catch (error) {
       console.error('Error handling form submission:', error);
     }
