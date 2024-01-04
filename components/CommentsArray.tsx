@@ -37,6 +37,7 @@ const CommentsArray: React.FC<CommentsArrayProps> = ({ allComments }) => {
           }
         }, [displayCount]);
 
+
         const sortedComments = allComments.slice(0).sort((a, b) => {
             return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
           });
@@ -44,9 +45,11 @@ const CommentsArray: React.FC<CommentsArrayProps> = ({ allComments }) => {
 
   return (
     <div>
-        {sortedComments.slice(0, displayCount).map((comment)=>(
+        {sortedComments.slice(0, displayCount).map((comment,index)=>{
+                    const isLastMessage = index === displayCount - 1;
+                    return (
 
-        <div key={comment.id} className='flex pt-2 border-t border-solid border-gray-400'>
+        <div key={comment.id}  ref={isLastMessage ? lastUserRef : null} className='flex pt-2 border-t border-solid border-gray-400'>
            <div className='flex flex-col gap 2 w-[150px] pl-6'>
             <div key={comment.id}>
                     <img
@@ -69,7 +72,8 @@ const CommentsArray: React.FC<CommentsArrayProps> = ({ allComments }) => {
    
         </div>
         </div>
-   ))}
+   )}
+   )}
     <div className='flex justify-center'>
          {displayCount < allComments.length && (
         <button onClick={loadMoreUsers} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>

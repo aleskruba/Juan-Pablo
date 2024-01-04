@@ -175,7 +175,7 @@ function Messages() {
 
         <div className='mb-8'>
              <h1>You have received  {allMessages.length} messages </h1> 
-             <h1> unread messages : {allMessages.length- totalSeenMessageIds}</h1>
+             <h1> Total number of unread messages : {allMessages.length- totalSeenMessageIds}</h1>
       </div>
       <div className='flex flex-col  gap-4 md:w-[60%]'>
       {sortedMessages.slice(0, displayCount).map((message, index) => {
