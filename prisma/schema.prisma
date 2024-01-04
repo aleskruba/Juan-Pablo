@@ -21,6 +21,8 @@ model User {
   image           String?
   activeUser      Boolean @default(false)
   hashedPassword  String?
+  reset_token     String?  @db.String
+  reset_token_expiry Int?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 

@@ -8,12 +8,13 @@ import { signIn } from 'next-auth/react';
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 
-const LoginForm = () => {
+const ForgetPasswordEmail = () => {
 
 
   const router = useRouter()
   const [isLoading,setIsLoading] = useState(false)
   const {data:session,status:sessionStatus} = useSession()
+  const [backendError,setBackendError] = useState('')
 
   useEffect(()=>{
     if (sessionStatus == 'authenticated'){
@@ -25,48 +26,51 @@ const LoginForm = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: '',
-      admin:true,
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('Required'),
-      password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
     }),
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
+        setBackendError('')
       setIsLoading(true)
     resetForm();
+    try {
+        const response = await fetch('/api/sendemail', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+        });
+    
+        console.log(response);
 
-
-    signIn('credentials',{
-        ...values,
-        redirect:false
-    })
-    .then((callback)=>{
-  
-      
-        if (callback?.error) {
-            toast.error('Invalid credentials')
+        if (!response.ok) {
+            toast.error('Email not found')
+            setBackendError('Email not found')
+            setIsLoading(false)
         }
-       
-        if (callback?.ok && !callback?.error) {
-           toast.success('Logged In')
-            router.push('/')  
+    
+        if (response.ok) {
+            toast.success('Email send successfully')
+           // router.push('/')  
         }
-    })
-  
 
-
-    },
+    }catch (error) {
+        console.log(error)
+        toast.success('Something went wrong')
+        }
+    }
   });
 
   return (
     <div className="w-screen h-screen  flex flex-col items-center justify-center">
             { !isLoading ? <>
       <form className="w-full max-w-md px-10" onSubmit={formik.handleSubmit}>
-      <div className='text-center mb-10 text-teal-400 font-thin text-2xl'>Login</div>
+      <div className='text-center mb-10 text-teal-400 font-thin text-xl md:text-2xl'>we will send you a link to reset password</div>
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2 ">
-            Email
+            Enter your mail
           </label>
           <input
             id="email"
@@ -83,43 +87,25 @@ const LoginForm = () => {
           {formik.touched.email && formik.errors.email && (
             <p className="text-red-500 text-xs mt-1">{formik.errors.email}</p>
           )}
+          {backendError && <p className="text-red-500 text-xs mt-2">{backendError}</p>}
         </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
-            Password
-          </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white"
-            placeholder="Enter your password"
-            autoComplete="current-password"
-          />
-          {formik.touched.password && formik.errors.password && (
-            <p className="text-red-500 text-xs mt-1">{formik.errors.password}</p>
-          )}
-        </div>
-       
-        <div className="mb-4">
+      
+        <div className="mb-4 flex justify-center">
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Login
+           Submit
           </button>
         </div>
       </form>
-      <Link href='/forgetpasswordemail'
+      <Link href='/login'
             className='block text-center text-blue-500 hover:underline mt-2'>
-        forgot your password? 
+        login page  
       </Link>
       </> : 'wait please ....'}
     </div>
   );
 };
 
-export default LoginForm;
+export default ForgetPasswordEmail;

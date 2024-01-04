@@ -201,7 +201,7 @@ const Allusers = () => {
 
         {!isLoading ? <>
         <div className='mb-8'>
-             <h1>Already {allUsers.length} visitors have logged with google</h1>
+             <h1>Already {allUsers.length} visitors have logged in</h1>
       </div>
 
       {/* FILTERS  */}

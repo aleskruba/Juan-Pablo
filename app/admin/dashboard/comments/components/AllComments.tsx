@@ -69,7 +69,7 @@ function AllComments() {
             return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
           });
           
-          const totalSeenMessageIds = allComments[0]?.sender.seenMessageIds.length;
+          //const totalSeenMessageIds = allComments[0]?.sender.seenMessageIds.length;
 
           return (
     <section>
