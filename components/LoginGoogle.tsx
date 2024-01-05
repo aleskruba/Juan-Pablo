@@ -56,7 +56,7 @@ const AuthForm = () => {
             <div>
                 <div onClick={handleSignOut}
                         className="text-red-800 dark:text-red-300 font-extralight hover:font-normal text-sm ml-5 md:text-base" >
-                            Sign Out
+                            SignOut
                 </div>
             </div>
         </div>
