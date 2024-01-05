@@ -54,7 +54,7 @@ export async function POST(
           <p style="font-size: 16px;">We received a request to reset your password associated with this email address (${email}).</p>
           <p style="font-size: 16px;">Please copy and paste the link below into your browser's address bar to reset your password:</p>
           <p style="font-size: 16px; background-color: #f0f0f0; padding: 10px;">
-             <b> <a href="${resultUrl}">RESET PASSWORD</a>  </b>
+             <b> <a href="${resultUrl}">RESET PASSWORD </a>  </b>
            </p>
           <p style="font-size: 14px; margin-top: 20px;">If you didn't request a password reset, please ignore this email.</p>
         </div>
