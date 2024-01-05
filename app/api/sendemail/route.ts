@@ -34,8 +34,9 @@ export async function POST(
         existingUser.reset_token_expiry = passwordResetExpires
         const resultUrl = `https://juan-pablo.vercel.app/forgetpassword/${resetToken}`
 
+  
 
-        const resend = new Resend('re_LUh8Bhj6_BWywSHFmxUZXw5zsomX16Q3u');
+        const resend = new Resend(process.env.RESENDTOKEN);
 
         resend.emails.send({
           from: 'onboarding@resend.dev',
