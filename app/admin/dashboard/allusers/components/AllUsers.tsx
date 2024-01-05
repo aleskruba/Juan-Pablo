@@ -36,7 +36,7 @@ const Allusers = () => {
       
           const matchesSearch =
             searchTermLowerCase === '' ||
-            item.email.toLowerCase().includes(searchTermLowerCase) ||
+            item.email?.toLowerCase().includes(searchTermLowerCase) ||
             (item.name && item.name?.toLowerCase().includes(searchTermLowerCase));
       
           if (enabled) {
