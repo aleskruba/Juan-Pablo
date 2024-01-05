@@ -47,7 +47,7 @@ export async function POST(
     let mailOptions = {
       from: process.env.EMAILUSER,
       to: email,
-      subject: 'TEST ZAPOMENUTÉHO HESLA',
+      subject: 'RESET PASSWORD',
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px;">
           <p style="font-size: 16px;">Hi there,</p>
