@@ -37,7 +37,7 @@ const Allusers = () => {
           const matchesSearch =
             searchTermLowerCase === '' ||
             item.email.toLowerCase().includes(searchTermLowerCase) ||
-            (item.name && item.name.toLowerCase().includes(searchTermLowerCase));
+            (item.name && item.name?.toLowerCase().includes(searchTermLowerCase));
       
           if (enabled) {
             // Filter based on activeUser property when enabled is true

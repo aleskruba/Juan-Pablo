@@ -59,6 +59,10 @@ const RegisterNewUserForm = () => {
         if (response.ok) {
           toast.success('Registered successfully')
             router.push('/#contact')  
+            signIn('credentials',{
+              ...values,
+              redirect:false
+          })
         }
           
  
@@ -69,10 +73,10 @@ const RegisterNewUserForm = () => {
 
         await response.json();
 
-        signIn('credentials',{
+/*         signIn('credentials',{
             ...values,
             redirect:false
-        })
+        }) */
      
         // Reset the form if needed
         resetForm();
