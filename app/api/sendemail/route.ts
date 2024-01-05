@@ -81,6 +81,7 @@ export async function POST(
         // Handle the error here if needed
         return new NextResponse('Email does not exist', { status: 500,statusText:'failed' });
       } else {
+        console.log('i am here')
         await prisma.user.update({
           where: { email: email },
           data: {

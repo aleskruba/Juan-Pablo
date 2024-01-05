@@ -50,6 +50,7 @@ const ForgetPasswordEmail = () => {
             setBackendError('Email not found')
             setIsLoading(false)
         }
+        console.log(response)
     
         if (response.ok) {
             toast.success('Email send successfully')
