@@ -1,9 +1,10 @@
 import React from 'react'
 import ForgetPasswordForm from './components/ForgetPasswordForm'
 
-const page = () => {
+const page = ({params}:any) => {
+
   return (
-    <ForgetPasswordForm/>
+    <ForgetPasswordForm params={params}/>
   )
 }
 

@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
+import crypto from "crypto";
 
 export async function POST(
   request: Request
@@ -75,35 +76,41 @@ export async function PUT(
     try{
   const body = await request.json();
 
-    const {password,repeatPassword} = body;
+    const {password,repeatPassword,token} = body;
+
+    console.log(body)
 
     if (password !== repeatPassword) {
       return new NextResponse('Invalid email address or Passwords do not match', { status: 422 ,statusText: 'Invalid email address or Passwords do not match'});
     }
-
-/*     const existingUser = await prisma.user.findUnique({
+    const hashedNewPassword = await bcrypt.hash(password, 12);
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+  
+    const updatedUserPassword = await prisma.user.findFirst({
       where: {
-        email: email,
+        reset_token: hashedToken,
       },
     });
 
-    if (existingUser) {
-      return new NextResponse('Email already exists', { status: 409,statusText:'Email already exists' });
-    } */
+    console.log(updatedUserPassword)
+    if (!updatedUserPassword) {
+      return new NextResponse('This user does now exist', { status: 400,statusText:'This user does now exist' });
+    } 
 
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    const user = await prisma.user.create({
-        data: {
- 
-          hashedPassword,
-         // admin
-        }
-      }); 
+    const updatedPassword = await prisma.user.update({
+      where: {
+        id: updatedUserPassword.id, // Replace 'userId' with the actual ID of the user you want to update
+      },
+      data: {
+        hashedPassword: hashedNewPassword,
+        reset_token: null,
+        reset_token_expiry: null,
+      },
+    });
     
- 
+    return new NextResponse('Password has been updated', { status: 200,statusText:'Password has been updated' });
 
-  return NextResponse.json(user);
+ 
 }
 
 catch(err:any) {

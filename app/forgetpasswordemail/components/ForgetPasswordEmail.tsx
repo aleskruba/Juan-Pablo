@@ -53,7 +53,8 @@ const ForgetPasswordEmail = () => {
     
         if (response.ok) {
             toast.success('Email send successfully')
-           // router.push('/')  
+            setIsLoading(false)
+            router.push('/')
         }
 
     }catch (error) {

@@ -9,15 +9,55 @@ import { signIn } from 'next-auth/react';
 
 type backendError = string | null
 
-const ForgetPasswordForm= () => {
+const ForgetPasswordForm= ({params}:any) => {
+
+  console.log(params.token)
 
   const router = useRouter()
+  const [error,setError] =useState("")
+  const [verified,setVerified] = useState(false)
+  const [user,setUser] = useState(null)
+  
+   useEffect(()=>{
+    const verifyToken = async () =>{
+      try {
+
+        const response = await fetch('/api/verifytoken', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({token: params.token}),
+        });
+
+        console.log(response)
+        if (response.status === 400) {
+             setError('Invalid token or token has expired')
+             setVerified(false)
+         }
+         if (response.status === 200) {
+          setError('')
+          setVerified(true)
+          const userData = await response.json()
+          setUser(userData)
+       
+    }
+
+      } catch(error) {
+          setError('Error ha occured')
+          console.log(error)
+        }
+      
+      }
+      verifyToken()
+      },[])  
+
   const {data:session,status:sessionStatus} = useSession()
   const [backendError,setBackendError] = useState<backendError>(null)
   const [isLoading,setIsLoading] = useState(false)
-
+/* 
     console.log(session)
-    console.log(sessionStatus)
+    console.log(sessionStatus) */
 
     useEffect(()=>{
         if (sessionStatus == 'authenticated'){
@@ -51,13 +91,13 @@ const ForgetPasswordForm= () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(values),
+          body: JSON.stringify({...values,token:params.token}),
         });
 
         console.log(response)
     
         if (!response.ok) {
-          toast.error('Soemthing went wrong')
+          toast.error('Something went wrong')
       }
      
         if (response.ok) {
@@ -93,7 +133,7 @@ const ForgetPasswordForm= () => {
     <div className="w-full h-screen mt-18 mb-16 flex items-center justify-center">
            { !isLoading ? <>
       <form className="w-full max-w-md px-10" onSubmit={formik.handleSubmit}>
-      <div className='text-center mb-10 text-teal-400 font-thin text-2xl'>Register a new user</div>
+      <div className='text-center mb-10 text-teal-400 font-thin text-2xl'>Reset your password</div>
    
         <div className="mb-4">
           <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
@@ -136,12 +176,14 @@ const ForgetPasswordForm= () => {
         </div>
         <div className="mb-4">
           <button
+          disabled={error.length > 0 }
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Change Password
           </button>
         </div>
+      <div className='text-xl text-red-500'> {error && error} </div> 
       </form>
       </> : 'wait please ....'}
     </div>

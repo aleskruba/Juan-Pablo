@@ -45,7 +45,8 @@ const LoginForm = () => {
   
       
         if (callback?.error) {
-            toast.error('Invalid credentials')
+            toast.error('wrong email or password')
+            setIsLoading(false)
         }
        
         if (callback?.ok && !callback?.error) {
