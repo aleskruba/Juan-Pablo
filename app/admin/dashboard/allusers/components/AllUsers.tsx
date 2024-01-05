@@ -32,10 +32,12 @@ const Allusers = () => {
 
       const filterUsers = (searchTerm: string) => {
         return allUsers.filter((item) => {
+          const searchTermLowerCase = searchTerm ? searchTerm.toLowerCase() : ''; // Convert searchTerm to lowercase or use an empty string if null
+      
           const matchesSearch =
-            searchTerm.toLowerCase() === '' ||
-            item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (item.name && item.name.toLowerCase().includes(searchTerm));
+            searchTermLowerCase === '' ||
+            item.email.toLowerCase().includes(searchTermLowerCase) ||
+            (item.name && item.name.toLowerCase().includes(searchTermLowerCase));
       
           if (enabled) {
             // Filter based on activeUser property when enabled is true
