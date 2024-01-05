@@ -106,6 +106,8 @@ const ForgetPasswordEmail = () => {
         login page  
       </Link>
       </> : 'wait please ....'}
+
+      <h2 className='text-red-800 text-xl text-center ml-4 mr-4'>Due to the testing plan on resend.com, it is allowed to use a single receiver email.</h2>
     </div>
   );
 };

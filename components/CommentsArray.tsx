@@ -50,8 +50,8 @@ const CommentsArray: React.FC<CommentsArrayProps> = ({ allComments }) => {
                     return (
 
         <div key={comment.id}  ref={isLastMessage ? lastUserRef : null} className='flex pt-2 border-t border-solid border-gray-400'>
-           <div className='flex flex-col gap 2 w-[150px] pl-6'>
-            <div key={comment.id}>
+           <div className='flex flex-col gap 2 min-w-[120px] pl-6'>
+            <div key={comment.id} className=''>
                     <img
                         src={comment?.sender.image ?  comment?.sender.image : 'avatar.png'}
                         alt={`Profile of ${comment?.sender.name}`}
@@ -61,7 +61,7 @@ const CommentsArray: React.FC<CommentsArrayProps> = ({ allComments }) => {
             <div className='font-bold'>
                 {comment?.sender.name?.split(' ')[0]}
             </div>
-            <div className='italic '>
+            <div className='italic text-xs '>
             {moment(comment?.createdAt).format('DD.MM YYYY HH:mm')}
             </div>
 

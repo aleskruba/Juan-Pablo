@@ -40,7 +40,7 @@ export async function POST(
 
         resend.emails.send({
           from: 'onboarding@resend.dev',
-          to: email,
+          to: `${email}`, // Assuming 'email' is a string variable
           subject: 'RESET PASSWORD',
           html:  `
           <div style="font-family: Arial, sans-serif; padding: 20px;">
