@@ -36,8 +36,8 @@ export async function POST(
     const resultUrl = `https://juan-pablo.vercel.app/forgetpassword/${resetToken}`
 
     let transporter = nodemailer.createTransport({
-      host: 'smtp.centrum.cz',
-      port: 587,
+      host: process.env.EMAILHOST,
+      port: process.env.EMAILPORT,
       secure: false, // true for 465, false for other ports
       auth: {
         user: process.env.EMAILUSER, // your email address
