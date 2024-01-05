@@ -2,6 +2,8 @@ import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 import crypto from "crypto"
 const nodemailer = require('nodemailer');
+import { Resend } from 'resend';
+
 
 export async function POST(
   request: Request
@@ -11,8 +13,6 @@ export async function POST(
     
   const {email} = body;
 
-  console.log(email)
-
   const existingUser = await prisma.user.findUnique({
     where: {
       email: email,
@@ -21,7 +21,6 @@ export async function POST(
   
   if (existingUser) {
   const {email} = body;
-  console.log(`Email ${email} exists`);
 
         const resetToken = crypto.randomBytes(20).toString('hex')
         const passwordResetToken = crypto
@@ -29,13 +28,41 @@ export async function POST(
             .update(resetToken)
             .digest('hex')
 
-    const passwordResetExpires = Date.now() + 3600000;
+         const passwordResetExpires = Date.now() + 3600000;
 
-    existingUser.reset_token = passwordResetToken
-    existingUser.reset_token_expiry = passwordResetExpires
-    const resultUrl = `https://juan-pablo.vercel.app/forgetpassword/${resetToken}`
+        existingUser.reset_token = passwordResetToken
+        existingUser.reset_token_expiry = passwordResetExpires
+        const resultUrl = `https://juan-pablo.vercel.app/forgetpassword/${resetToken}`
 
-    let transporter = nodemailer.createTransport({
+
+        const resend = new Resend('re_LUh8Bhj6_BWywSHFmxUZXw5zsomX16Q3u');
+
+        resend.emails.send({
+          from: 'onboarding@resend.dev',
+          to: email,
+          subject: 'RESET PASSWORD',
+          html:  `
+          <div style="font-family: Arial, sans-serif; padding: 20px;">
+            <p style="font-size: 16px;">Hi there,</p>
+            <p style="font-size: 16px;">We received a request to reset your password associated with this email address (${email}).</p>
+            <p style="font-size: 16px;">Please copy and paste the link below into your browser's address bar to reset your password:</p>
+            <p style="font-size: 16px; background-color: #f0f0f0; padding: 10px;">
+               <b> <a href="${resultUrl}">RESET PASSWORD </a>  </b>
+             </p>
+            <p style="font-size: 14px; margin-top: 20px;">If you didn't request a password reset, please ignore this email.</p>
+          </div>
+        `
+        });
+
+        await prisma.user.update({
+          where: { email: email },
+          data: {
+            reset_token: existingUser.reset_token,
+            reset_token_expiry: existingUser.reset_token_expiry,
+          },
+        });
+    
+    /*  let transporter = nodemailer.createTransport({
       host: process.env.EMAILHOST,
       port: process.env.EMAILPORT,
       secure: false, // true for 465, false for other ports
@@ -59,11 +86,8 @@ export async function POST(
           <p style="font-size: 14px; margin-top: 20px;">If you didn't request a password reset, please ignore this email.</p>
         </div>
       `,
-    };
-
-   
-    
-    
+    }; 
+               
 
     transporter.sendMail(mailOptions, async (error:any) => {
       if (error) {
@@ -76,6 +100,15 @@ export async function POST(
             reset_token: null,
             reset_token_expiry: null,
           },
+        });  
+
+        const resend = new Resend('re_LUh8Bhj6_BWywSHFmxUZXw5zsomX16Q3u');
+
+        resend.emails.send({
+          from: 'onboarding@resend.dev',
+          to: 'aleskruba@seznam.cz',
+          subject: 'Hello World',
+          html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
         });
 
         // Handle the error here if needed
@@ -92,11 +125,18 @@ export async function POST(
         return new NextResponse('Email does not exist', { status: 200,statusText:'Email has been sent succesfully' });
       }
     });
+ */
 
-
-  return NextResponse.json({});
+    return new NextResponse('Email does not exist', { status: 200,statusText:'Email has been sent succesfully' });
 
   } else {
+    await prisma.user.update({
+      where: { email: email },
+      data: {
+        reset_token: null,
+        reset_token_expiry: null,
+      },
+    });  
     
     console.log('Email does not exist');
     return new NextResponse('Email does not exist', { status: 400,statusText:'Email does not exist' });
@@ -107,6 +147,7 @@ export async function POST(
 
 catch(err:any) {
     console.log(err,'REGISTRATION_ERROR');
+    
     return new NextResponse('Email does not exist', { status: 500,statusText:'Server Error' });
 
 }
