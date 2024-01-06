@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from 'next/navigation'
-import { fetchMessage } from '@/utils';
+import { fetchDeleteMessage, fetchMessage } from '@/utils';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -55,14 +55,10 @@ const MessageDetail: React.FC<MessageDetailProps> = ({ id }) => {
 const deleteMessageFunction = async (id: string)  => {
   setIsLoadingDelete(true)
   try {
-    const response = await fetch('/api/message', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id:id}), // Sending the message in the request body
-    });
-    
+
+    const response = await fetchDeleteMessage(id)
+
+   
     if (response.status === 200) {
         router.push('/admin/dashboard/messages')
         setIsLoadingDelete(false)
@@ -85,13 +81,7 @@ const deleteMessageFunction = async (id: string)  => {
                 Go back to dashboard
               </Link>
           </div>
-{/*           <div className='mb-4 hover:bg-gray-100 dark:text-black text-xl border px-4 bg-gray-300  border-emerald-300 rounded-lg w-[250px]'>
-            <Link href={'/admin/dashboard/messages'}
-                scroll={false}
-              >
-                Go back to messages
-              </Link>
-          </div> */}
+
           </div>
         {!isloading ? <> 
           <div className='grid grid-cols-2 md:grid-cols-4 mx-6 gap-4 dark:bg-gray-800 bg-gray-200 p-4 rounded-md'>

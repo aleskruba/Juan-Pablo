@@ -4,9 +4,9 @@ import { getServerSession } from 'next-auth';
 import { useSession } from 'next-auth/react'
 import { ObjectId } from 'mongodb';
 
-export async function POST(req: NextRequest) {
+export async function PUT(req: NextRequest) {
 
-    if (req.method === 'POST') {
+    if (req.method === 'PUT') {
         
         try {
             const data = await req.json();

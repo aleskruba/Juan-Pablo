@@ -1,11 +1,12 @@
 "use client"
-import React,{useEffect,useState} from 'react';
+import React,{useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { signIn } from 'next-auth/react';
+import { registerUser } from '@/utils';
 
 type backendError = string | null
 
@@ -40,15 +41,18 @@ const RegisterNewUserForm = () => {
       try {
         // Perform registration logic here using form values
         console.log('Form values:', values);
+
+
+        const response = await registerUser(values)
         
         // Make asynchronous call using fetch with async/await
-        const response = await fetch('/api/register', {
+ /*        const response = await fetch('/api/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(values),
-        });
+        }); */
 
         console.log(response)
     

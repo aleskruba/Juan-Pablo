@@ -49,7 +49,7 @@ const AuthForm = () => {
                     <div>
                     <Link href='/admin/dashboard'
                             onClick={() => setIsAdminPage(true)}
-                            className="text-blue-800 dark:text-blue-300 font-extralight hover:text-black dark:hover:text-white text-sm md:text-base" >
+                            className="text-blue-800 dark:text-blue-300 font-extralight hover:text-black dark:hover:text-white text-xs md:text-base" >
                                 DASHBOARD
                     </Link>
                     </div>}

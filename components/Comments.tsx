@@ -7,7 +7,7 @@ import { useLanguageContext } from "@/context/language-context"
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import CommentsArray from './CommentsArray';
-import { fetchComments } from '@/utils';
+import { fetchComments, fetchSendComment } from '@/utils';
 import { useRouter } from 'next/navigation';
 
 interface User {
@@ -42,13 +42,8 @@ useEffect(() => {
 
   async function sendMessage(message: string) {
     try {
-       const response = await fetch('/api/comment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message:message, user:session.data?.user }), // Sending the message in the request body
-      });
+ 
+      const response = await fetchSendComment(message, session.data?.user )
   
       const data = await response.json();
 
@@ -70,16 +65,19 @@ useEffect(() => {
 
   const handleSubmit = async (values: { message: string }, { resetForm }: FormikHelpers<{ message: string }>) => {
 
+    //temporaty state
     const newComment: User = {
-      id: 'unique_id', // Provide a unique ID for the new comment
+      id: new Date().toString(), 
       body: values.message,
-      createdAt: new Date().toString(), // Convert date to string
+      createdAt: new Date().toString(), 
       sender: {
-        email: 'example@example.com', // Replace with the actual email
-        image: session.data?.user?.image || '', // Use the image if available
-        name: session.data?.user?.name || '', // Use the name if available
+        email: session.data?.user?.email || '', 
+        image: session.data?.user?.image || '', 
+        name: session.data?.user?.name || '', 
       },
     };
+
+
     try {
 
 
@@ -87,9 +85,7 @@ useEffect(() => {
       
 
       await sendMessage(values.message);
-      resetForm(); // Reset the form after submission
-     // const updatedComments = await fetchComments();
-      //setAllComments(updatedComments);
+      resetForm(); 
     } catch (error) {
       console.error('Error handling form submission:', error);
     }
