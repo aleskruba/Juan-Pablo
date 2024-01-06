@@ -154,8 +154,7 @@ function Messages() {
           const sortedMessages = allMessages.slice(0).sort((a, b) => {
             return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
           });
-          
-          const totalSeenMessageIds = allMessages[0]?.sender.seenMessageIds.length;
+    
 
           return (
     <section>
@@ -173,11 +172,7 @@ function Messages() {
         </div>
         {!isLoading ? <>
 
-        <div className='mb-8'>
-             <h1>You have received  {allMessages.length} messages </h1> 
-             <h1> Total number of unread messages : {allMessages.length- totalSeenMessageIds}</h1>
-      </div>
-      <div className='flex flex-col  gap-4 md:w-[60%]'>
+       <div className='flex flex-col  gap-4 md:w-[60%]'>
       {sortedMessages.slice(0, displayCount).map((message, index) => {
   const isLastMessage = index === displayCount - 1;
   return (

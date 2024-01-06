@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/app/libs/prismadb';
-import { getServerSession } from 'next-auth';
-import { useSession } from 'next-auth/react'
-import { ObjectId } from 'mongodb';
+
 
 export async function PUT(req: NextRequest) {
 
@@ -34,7 +32,7 @@ export async function PUT(req: NextRequest) {
                 sender: true, // Include the sender relation
               },
             });
-              
+              console.log(updatedMessage)
               return new Response(JSON.stringify({ message }), { status: 200 });
                                
               }
