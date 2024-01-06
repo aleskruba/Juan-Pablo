@@ -51,9 +51,9 @@ const Contact = () => {
         const data = await response.json();
   
         if (data.message === 'success'){
-          toast.success('Message sent successfully')
+          toast.success('Message has been sent successfully')
         }
-        else {toast.error('Message was has not been sent successfully')}
+        else {toast.error('Message  has not been sent successfully')}
         
         return data;
       } catch (error) {

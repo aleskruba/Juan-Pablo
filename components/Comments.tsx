@@ -48,12 +48,12 @@ useEffect(() => {
       const data = await response.json();
 
       if (data.message === 'success'){
-        toast.success('Message sent successfully')
+        toast.success('Comment sent successfully')
         router.refresh()
         
        }
 
-      else {toast.error('Message was has not been sent successfully')}
+      else {toast.error('Comment has not been sent successfully')}
       
       return data; 
    
